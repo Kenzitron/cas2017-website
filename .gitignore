@@ -1,2 +1,5 @@
 /node_modules
 .idea/*
+/bin/C4P-report.csv
+/bin/users.csv
+/bin/CAS2017-DB
