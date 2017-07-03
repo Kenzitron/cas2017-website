@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var auth = require('../middleware/authentication');
-var sqlite3 = require('../services/sqlite3');
+const express = require('express');
+const router = express.Router();
+const auth = require('../middleware/authentication');
+const sqlite3 = require('../services/sqlite3');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

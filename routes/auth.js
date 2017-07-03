@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport')
+const express = require('express');
+const router = express.Router();
+const passport = require('passport')
     , LocalStrategy = require('passport-local').Strategy;
 
-var sha1 = require('sha1');
-var sqlite3 = require('../services/sqlite3');
+const sha1 = require('sha1');
+const sqlite3 = require('../services/sqlite3');
 
 /**
  * Integration of the passport middleware. We have integrated local strategy by now...

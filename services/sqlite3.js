@@ -1,4 +1,4 @@
-var sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3').verbose();
 db = new sqlite3.Database('./bin/CAS2017-DB');
 
 module.exports.createTables = function(){
@@ -31,7 +31,7 @@ module.exports.createTables = function(){
 
 
 module.exports.insertUser = function(username, password, name) {
-    var stmt = db.prepare("INSERT INTO users VALUES (?,?,?,?)");
+    const stmt = db.prepare('INSERT INTO users VALUES (?,?,?,?)');
     stmt.run(null, username, password, name);
     stmt.finalize();
 };
@@ -53,7 +53,7 @@ module.exports.insertPaper = function(
     audience,
     duration,
     date) {
-    var stmt = db.prepare("INSERT INTO papers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    const stmt = db.prepare('INSERT INTO papers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
     stmt.run(null, hash, name, about, picture, email, twitter, linkedin,
         web, title, short_description, description, extra_information, tags, audience, duration, date);
 
@@ -61,7 +61,7 @@ module.exports.insertPaper = function(
 };
 
 module.exports.findByUsername = function(username, fn){
-    var stmt = db.prepare("SELECT * FROM users WHERE username = ?");
+    const stmt = db.prepare('SELECT * FROM users WHERE username = ?');
     stmt.bind(username);
 
     stmt.get(function(err, row){
