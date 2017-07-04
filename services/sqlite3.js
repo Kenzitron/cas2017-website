@@ -27,7 +27,17 @@ module.exports.createTables = function(){
         "date TEXT)");
     console.log("La tabla papers ha sido correctamente creada");
 
+
+    db.run("CREATE TABLE IF NOT EXISTS votes (user_id INTEGER," + 
+                        "paper_id INTEGER, " +
+                        "score INTEGER, " +
+                        "PRIMARY KEY(user_id, paper_id), " +
+                        "FOREIGN KEY(user_id) REFERENCES users(id), " +
+                        "FOREIGN KEY(paper_id) REFERENCES papers(id) " +
+                        ")");
+    console.log("La tabla votos ha sido correctamente creada");
 };
+
 
 
 module.exports.insertUser = function(username, password, name) {
@@ -35,6 +45,12 @@ module.exports.insertUser = function(username, password, name) {
     stmt.run(null, username, password, name);
     stmt.finalize();
 };
+
+module.exports.insertVote = function(user_id, paper_id, score){
+    var stmt = db.prepare("INSERT INTO votes VALUES (?,?,?)");
+    stmt.run(user_id, paper_id, score);
+    stmt.finalize();
+}
 
 module.exports.insertPaper = function(
     hash,
@@ -77,3 +93,9 @@ module.exports.getPapers = function(callback){
         return callback(rows);
     });
 };
+
+module.exports.getVotesByUserId = function(userId, callback){
+    db.all("Select * from votes where user_id = " + userId, function(err, rows) {
+        return callback(rows);
+    });
+}
