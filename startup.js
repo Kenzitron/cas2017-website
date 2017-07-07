@@ -1,40 +1,32 @@
 /**
  * Created by aasensio on 29/06/2017.
  */
-var fs = require('fs');
-var parse = require('csv-parse');
-var sha1 = require('sha1');
-var sqlite = require('./services/sqlite3');
+const fs = require('fs');
+const parse = require('csv-parse');
+const sha1 = require('sha1');
+const sqlite = require('./services/sqlite3');
 
 sqlite.createTables();
 
 fs.readFile('./bin/users.csv', 'utf8', function(err, content) {
     parse(content, {columns: null, delimiter: ';', trim: true}, function(err, rows) {
-        for (var i = 0;i<rows.length;i++){
-            sqlite.insertUser(rows[i][3], sha1(rows[i][0]), rows[i][2]);
+        for (let row of rows) {
+            sqlite.insertUser(row[3], sha1(row[0]), row[2]);
         }
     })
 });
 
 fs.readFile('./bin/C4P-report.csv', 'utf8', function(err, content) {
     parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) {
-        for (var i = 0;i<rows.length;i++){
-            var tags = [
-                rows[i][12], rows[i][13],
-                rows[i][14], rows[i][15],
-                rows[i][16], rows[i][17],
-                rows[i][18], rows[i][19],
-                rows[i][20], rows[i][21],
-                rows[i][22], rows[i][23],rows[i][24]
+        for (let row of rows) {
+            const tags = [
+                row[12], row[13], row[14], row[15], row[16], row[17], row[18],
+                row[19], row[20], row[21], row[22], row[23], row[24]
             ].filter(String);
 
-            sqlite.insertPaper(rows[i][0], rows[i][1], rows[i][2],
-                rows[i][3], rows[i][4], rows[i][5],
-                rows[i][6], rows[i][7], rows[i][8],
-                rows[i][9], rows[i][10],
-                rows[i][11], tags.join(","),
-                rows[i][25], rows[i][26],
-                rows[i][27]
+            sqlite.insertPaper(
+                row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8],
+                row[9], row[10], row[11], tags.join(','), row[25], row[26], row[27]
             );
         }
     })
