@@ -1,4 +1,5 @@
 var sqlite3 = require('sqlite3').verbose();
+var Promise = require('promise');
 db = new sqlite3.Database('./bin/CAS2017-DB');
 
 module.exports.createTables = function(){
@@ -46,10 +47,20 @@ module.exports.insertUser = function(username, password, name) {
     stmt.finalize();
 };
 
-module.exports.insertVote = function(user_id, paper_id, score){
+module.exports.insertVote = function(userId, paperId, score){
+    console.log("Inserting vote");
     var stmt = db.prepare("INSERT INTO votes VALUES (?,?,?)");
-    stmt.run(user_id, paper_id, score);
+    stmt.run(userId, paperId, score);
     stmt.finalize();
+    return ({ userId: userId, paperId: paperId, score: score});
+}
+
+module.exports.updateVote = function(userId, paperId, score){
+    console.log("updating vote");
+    var stmt = db.prepare("UPDATE votes set score=? where user_id = ? and paper_id = ?");
+    stmt.run(score, userId, paperId );
+    stmt.finalize();
+    return ({ userId: userId, paperId: paperId, score: score});
 }
 
 module.exports.insertPaper = function(
@@ -97,5 +108,22 @@ module.exports.getPapers = function(callback){
 module.exports.getVotesByUserId = function(userId, callback){
     db.all("Select * from votes where user_id = " + userId, function(err, rows) {
         return callback(rows);
+    });
+}
+
+module.exports.getVotesByUserAndPaper = function(userId, paperId){  
+    console.log("getVotesByUserAndPaper: Starting");  
+    return new Promise((resolve, reject) => {
+        try{
+            db.all("Select * from votes where user_id = " + userId + " and paper_id = " + paperId,  
+            function(err, rows) {
+                console.log("getVotesByUserAndPaper: Resolve");
+                resolve(rows);
+            });    
+        }catch(err){
+            console.log("getVotesByUserAndPaper: Rejecting")
+            reject(err);
+        }
+        
     });
 }
