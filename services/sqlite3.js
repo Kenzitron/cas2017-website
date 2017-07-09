@@ -103,9 +103,15 @@ module.exports.getPapers = function(callback){
     });
 };
 
-module.exports.getVotesByUserId = function(userId, callback){
-    db.all("Select * from votes where user_id = " + userId, function(err, rows) {
-        return callback(rows);
+module.exports.getVotesByUserId = function(userId){
+    return new Promise((resolve, reject) => {
+        try{
+            db.all("Select * from votes where user_id = " + userId, function(err, rows) {
+                resolve(rows);
+            });    
+        }catch(err){
+            reject(err);
+        }    
     });
 }
 
@@ -118,7 +124,6 @@ module.exports.getVotesByUserAndPaper = function(userId, paperId){
             });    
         }catch(err){
             reject(err);
-        }
-        
+        }        
     });
 }
