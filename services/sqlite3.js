@@ -48,7 +48,6 @@ module.exports.insertUser = function(username, password, name) {
 };
 
 module.exports.insertVote = function(userId, paperId, score){
-    console.log("Inserting vote");
     var stmt = db.prepare("INSERT INTO votes VALUES (?,?,?)");
     stmt.run(userId, paperId, score);
     stmt.finalize();
@@ -56,7 +55,6 @@ module.exports.insertVote = function(userId, paperId, score){
 }
 
 module.exports.updateVote = function(userId, paperId, score){
-    console.log("updating vote");
     var stmt = db.prepare("UPDATE votes set score=? where user_id = ? and paper_id = ?");
     stmt.run(score, userId, paperId );
     stmt.finalize();
@@ -112,16 +110,13 @@ module.exports.getVotesByUserId = function(userId, callback){
 }
 
 module.exports.getVotesByUserAndPaper = function(userId, paperId){  
-    console.log("getVotesByUserAndPaper: Starting");  
     return new Promise((resolve, reject) => {
         try{
             db.all("Select * from votes where user_id = " + userId + " and paper_id = " + paperId,  
             function(err, rows) {
-                console.log("getVotesByUserAndPaper: Resolve");
                 resolve(rows);
             });    
         }catch(err){
-            console.log("getVotesByUserAndPaper: Rejecting")
             reject(err);
         }
         

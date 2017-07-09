@@ -24,15 +24,12 @@ router.get('/api/paper/:paperId/votes', auth.ensureAisuthenticated, function(req
     });
 });
 
-router.post('/api/paper/:paperId/vote',  function(req, res, next){
-   // var userId = req.user.id;
-    console.log("Starting post method");
+router.post('/api/paper/:paperId/vote',  auth.ensureAisuthenticated, function(req, res, next){
+    var userId = req.user.id;
     var userId = 2;
     var score = req.body.score;
     var paperId = req.params.paperId;
     sqlite3.getVotesByUserAndPaper(userId, paperId).then((votes) => {
-        console.log("method post: then promise");
-        console.log(votes);
         if(votes.length === 0){
             sqlite3.insertVote(userId, paperId, score);
         }else{
@@ -40,7 +37,6 @@ router.post('/api/paper/:paperId/vote',  function(req, res, next){
         }
         res.json({ userId : userId, paperId : paperId, score : score });
     })    
-    console.log("method post: finishing")
 });
 
 
