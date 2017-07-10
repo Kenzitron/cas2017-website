@@ -9,26 +9,28 @@ router.get('/', function(req, res, next) {
     res.render('index', {title: 'Express'});
 });
 
+
 router.get('/api/rateTalk', auth.ensureIsAuthenticated, function(req, res, next) {
     res.json({'ok': true});
 });
 
-router.get('/api/votes', auth.ensureAisuthenticated, function(req, res, next){
+
+router.get('/api/votes', auth.ensureIsAuthenticated, function(req, res, next){
     sqlite3.getVotesByUserId(req.user.id).then(votes => res.json(votes));
 });
 
-router.get('/api/paper/:paperId/votes', auth.ensureAisuthenticated, function(req, res, next){
+router.get('/api/paper/:paperId/votes', auth.ensureIsAuthenticated, function(req, res, next){
     sqlite3.getVotesByUserId(req.user.id, function(votes){
         res.json(votes);
     });
 });
 
-router.post('/api/paper/:paperId/vote', auth.ensureAisuthenticated, function(req, res, next){
+router.post('/api/paper/:paperId/vote', auth.ensureIsAuthenticated, function(req, res, next){
     let userId = Number.parseInt(req.user.id);
     let score = Number.parseInt(req.body.score);
     let paperId = Number.parseInt(req.params.paperId);    
     sqlite3.getVotesByUserId(userId).then((userVotes) => {  
-        let paperVoteIndex = userVotes.findIndex(vote => return vote.paper_id === paperId);
+        let paperVoteIndex = userVotes.findIndex(vote => { return vote.paper_id === paperId});
         if(paperVoteIndex >= 0){
             userVotes[paperVoteIndex].score = score;
         }

@@ -28,8 +28,8 @@ parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) 
                 row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8],
                 row[9], row[10], row[11], tags.join(','), row[25], row[26], row[27]
             );
-        }
     }
+    
 });
 
 sqlite.insertVote(2,1,5);
