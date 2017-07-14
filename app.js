@@ -4,8 +4,8 @@ const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const passport = require('passport')
-    , LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const mid = require('./middleware/authentication');
 
 //ROUTERS
 const router = require('./routes/index');
@@ -27,6 +27,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+    if (req.isAuthenticated())
+        res.locals.user = req.user;
+    next();
+});
 
 app.use('/', router);
 app.use('/', auth);
