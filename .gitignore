@@ -2,4 +2,5 @@
 .idea/*
 /bin/C4P-report.csv
 /bin/users.csv
+/bin/users-final.csv
 /bin/CAS2017-DB

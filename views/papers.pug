@@ -1,0 +1,52 @@
+extends layout
+
+block header
+  if user
+    div
+      | TE QUEDAN: #{remaining_votes} votos por repartir
+
+block content
+  div
+    each val, index in papers
+      section.speaker
+        h2 #[strong Charla/Taller]: #{val.title}
+
+        //- Aquí se muestra la información de los votos recibidos.
+        if (val.total)
+          h3 PUNTUACION RECIBIDA: #{val.total } VOTOS
+        else
+          h3 PUNTUACION RECIBIDA: 0 VOTOS :(
+
+        p #[strong Autor]: #{val.name}
+        p #[strong Presentación]: #{val.about}
+          |
+          img(src='/images/avatars/' + val.picture, width='100')
+        p #[strong Redes Sociales]:
+          |
+          if (val.twitter)
+            a(href='https://twitter.com/' + val.twitter, target="blank") Twitter
+            | ,
+          if (val.linkedin)
+            a(href=val.linkedin, target="blank") LinkedIn
+            | ,
+          if (val.web != 'http://')
+            a(href=val.web, target="blank") Web Personal
+        p #[strong Descripción corta]: #{val.short_description}
+        p #[strong Descripción ampliada]: #{val.description}
+        if val.extra_information
+          p #[strong Información adicional]: #{val.extra_information}
+        p #[strong Nivel]: #{val.public}
+        p #[strong Formato]: #{val.duration}
+        p #[strong Tags]: #{val.tags}
+
+        //- Si el usuario está registrado mostramos la información de su voto al speaker y el formulario para votar
+        if user
+          p RATE SYSTEM
+          p YO VOTÉ POR ESTA CHARLA/TALLER
+            if (val.score)
+              |  #{val.score}
+            else
+              |  0
+            |  PUNTOS
+        else
+          a(href="/login") LOGEATE!!

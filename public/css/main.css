@@ -1,0 +1,273 @@
+/* General styles */
+
+@font-face {
+    font-family: 'avenir';url('font/avenir-lt-std-55-roman.otf') format('otf'),
+}
+
+body {
+    font-family: 'avenir', 'Lato', sans-serif;
+    font-weight: normal;
+    background: #EBF2F6;
+}
+
+img {
+    max-width: 100%;
+}
+
+p {
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+ul {
+    font-size: 20px;
+}
+
+section {
+    padding-top: 30px;
+    padding-bottom: 30px
+}
+
+.container {
+    max-width: 1024px !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.medium-padding {
+    padding: 25px;
+}
+
+.newline {
+    display: block;
+}
+
+/*Logos & banners*/
+
+#logo img {
+    margin-left: 15px;
+    height: 34px;
+    margin-top: 8px;
+}
+
+#header-desktop #header-twitter img {
+    width: 22px;
+}
+
+#header-desktop #actions .item {
+    margin: 0 40px 0 0;
+    font-size: 1.4em;
+}
+
+#actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#actions .action-button {
+    width: 200px;
+    text-align: center;
+}
+
+.menu-desktop {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.menu-desktop a {
+    padding-right: 25px;
+    padding-left: 25px;
+    color: #648DFF
+}
+
+.navbar-default {
+    background: none;
+    border: 0;
+}
+
+#action-button-mobile {
+    background: #6B4DFB;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    position: fixed;
+    bottom: 0;
+    z-index: 9999;
+    text-align: center;
+    text-decoration: none;
+}
+
+.action-button {
+    background: #648DFF;
+    border: none;
+    color: white;
+    padding: 10px 30px;
+    text-decoration: none;
+}
+
+.action-button.call-to-action {
+    padding: 10px 40px;
+    font-size: 20px;
+}
+
+.action-button:hover {
+    color: white;
+}
+
+/*Containers*/
+
+.footer-sponsor-button {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.container-subtitle {
+    padding-top: 40px;
+    padding-bottom: 40px
+}
+
+.info-title-text {
+    padding-bottom: 30px;
+}
+
+/*text*/
+
+.main-title {
+    font-size: 45px;
+    font-weight: 800;
+    color: #665EFB;
+    text-align: center;
+
+    background: linear-gradient(to right, #7135FB, #54BDFC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-title {
+    font-size: 90px;
+    margin-bottom: 0;
+
+    background: #5A8CFC;
+    -webkit-background-clip: text
+}
+
+.main-subtitle {
+    color: #5A8CFC;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.main-smaller-subtitle {
+    font-size: 18px;
+}
+
+.section-image-speaker-title {
+    margin-top: -200px
+}
+
+.section-image-title {
+    margin-top: -50px;
+    text-align: left;
+}
+
+.info-text {
+    color: white;
+}
+
+.colored {
+    color: #6B4DFB
+}
+
+.gradient-background {
+    background: -webkit-linear-gradient(bottom left, #6B4DFB, #66BCFF);
+    background: -moz-linear-gradient(bottom left, #6B4DFB, #66BCFF);
+    background: -o-linear-gradient(bottom left, #6B4DFB, #66BCFF);
+    background: linear-gradient(to top right, #6B4DFB, #66BCFF);
+}
+
+.gradient-background img, .keynotes img, #fibes img {
+    box-shadow: 12px 12px 29px #555;
+}
+
+.flex-column-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column
+}
+
+.keynote-inspiration-text {
+    font-size: 20px;
+    font-weight: normal;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: #5A8CFC;
+    text-align: center;
+}
+
+/*Hotel*/
+
+#hotel a {
+    color: white;
+    text-decoration: underline;
+}
+
+/*Sponsors*/
+
+#sponsors {
+    text-align: center;
+}
+
+#sponsors img {
+    margin: 20px;
+}
+
+/*Footer*/
+
+#footer-links p {
+    font-size: 15px;
+}
+
+/*Media queries*/
+
+@media (min-width: 768px) {
+
+    #header-desktop {
+        padding-top: 30px;
+        display: flex;
+        align-items: center;
+    }
+
+    #header-desktop #logo-desktop img {
+        width: 100px;
+    }
+
+    #header-desktop #actions {
+        text-align: right;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .main-title {
+        font-size: 40px;
+    }
+
+    .section-image-speaker-title {
+        margin-top: -100px
+    }
+
+    .section-image-title {
+        margin-top: -20px;
+    }
+}
