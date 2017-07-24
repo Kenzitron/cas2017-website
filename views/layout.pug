@@ -2,7 +2,28 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/css/style.css')
+
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')    
+    meta(name='viewport', content='width=device-width, initial-scale=1') 
+
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato&amp;subset=latin-ext')
+    link(rel='stylesheet', href='/css/main.css')
+    link(rel='stylesheet', href='bootstrap/css/bootstrap.min.css')
+    link(rel='import', href='menu.html', id="link-menu")
+    link(rel='import', href='footer.html', id="link-footer")
+
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js', 
+      integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', 
+      crossorigin='anonymous')
+    script(src='./js/talk-votes.js')
+    script(src='./js/isotope.pkgd.min.js')
+
+
   body
+    script(src='js/html-imports.js')
+    script(src='js/custom.js')
+
+    div#menu 
     block header
     block content
+    div#footer

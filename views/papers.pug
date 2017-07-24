@@ -1,44 +1,59 @@
 extends layout
 
 block header
+  section#main-content
+    div.container
+      div.row
+        div.col-xs-12.col-sm-8.col-sm-offset-2
+          h1(class="main-title", data-translatable) CONFERENCIA AGILE SPAIN // AGILE SPAIN CONFERENCE
+          img(src='images/banner-home.png')
+        div.col-xs-12.col-sm-8.col-sm-offset-2.container-subtitle
+          p.main-subtitle 9 y 10 de Noviembre. Fibes, Sevilla
+          p.main-subtitle.main-smaller-subtitle Growing Up! From Zero to Hero! 
+          p.main-subtitle.main-smaller-subtitle(data-translatable) Para todos los profesionales del agilismo // For all the agile professionals
+
+block content
+  div.button-group.filter-button-group
+    button(data-filter='*') Todo
+    button(data-filter='.50') Charla larga
+    button(data-filter='.20') Charla corta
+
   if user
     div
       | TE QUEDAN: #{remaining_votes} votos por repartir
-
-block content
-  div
+  div.grid
     each val, index in papers
-      section.speaker
-        h2 #[strong Charla/Taller]: #{val.title}
-
-        //- Aquí se muestra la información de los votos recibidos.
-        if (val.total)
-          h3 PUNTUACION RECIBIDA: #{val.total } VOTOS
-        else
-          h3 PUNTUACION RECIBIDA: 0 VOTOS :(
-
-        p #[strong Autor]: #{val.name}
-        p #[strong Presentación]: #{val.about}
-          |
-          img(src='/images/avatars/' + val.picture, width='100')
-        p #[strong Redes Sociales]:
-          |
+      section(class=val.duration + ' speaker grid-item')
+        div#speaker-title #{val.title}
+        img(src='/images/avatars/' + val.picture, width='100')
+        div.speaker-details
+          div#speaker-name #{val.name}
+          p #{val.about}
           if (val.twitter)
             a(href='https://twitter.com/' + val.twitter, target="blank") Twitter
-            | ,
           if (val.linkedin)
             a(href=val.linkedin, target="blank") LinkedIn
-            | ,
           if (val.web != 'http://')
-            a(href=val.web, target="blank") Web Personal
-        p #[strong Descripción corta]: #{val.short_description}
-        p #[strong Descripción ampliada]: #{val.description}
+            a(href=val.web, target="blank") Web
+
+        hr       
+        span.title Nivel: 
+        span #{val.public}
+        br
+        span.title Formato: 
+        span #{val.duration}
+        br
+        span.title Tags: 
+        span #{val.tags}
+        br
+        br         
+        p #{val.short_description}
+        //- p #[strong Descripción ampliada]: #{val.description}
         if val.extra_information
           p #[strong Información adicional]: #{val.extra_information}
-        p #[strong Nivel]: #{val.public}
-        p #[strong Formato]: #{val.duration}
-        p #[strong Tags]: #{val.tags}
 
+        a.read-more Leer mas
+        hr
         //- Si el usuario está registrado mostramos la información de su voto al speaker y el formulario para votar
         if user
           p RATE SYSTEM
@@ -48,5 +63,18 @@ block content
             else
               |  0
             |  PUNTOS
+          div 
+            span Vota:
+            select(talk-id=val.id, name="{val.name")
+              -for(var i = 0;i< user.num_votes + 1 ;i++){
+              option(value="#{i}")  #{i}
+              -}           
         else
-          a(href="/login") LOGEATE!!
+          a#login(href="/login") ¿Quieres votar? ¡Logueate!
+
+        //- Aquí se muestra la información de los votos recibidos.
+        if (val.total)
+          div.votes #{val.total } VOTOS
+        else
+          div.votes 0 VOTOS 
+        

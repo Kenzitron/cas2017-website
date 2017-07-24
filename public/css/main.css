@@ -214,6 +214,88 @@ a:hover {
     text-align: center;
 }
 
+/* Talkss */
+
+.grid-item{
+    width: 30%;
+    margin: 1%;
+    color: #578AFB;
+    border: 2px solid #B2BCCE;
+    border-radius: 18px 18px 18px 18px;
+    -moz-border-radius: 18px 18px 18px 18px;
+    -webkit-border-radius: 18px 18px 18px 18px;
+    padding: 30px;
+}
+
+.speaker img{
+    float: left;
+    margin-right: 20px;
+    width: 100px;
+}
+
+.speaker p{
+    font-size: 14px;
+}
+
+.speaker #speaker-title{
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.speaker #speaker-name{
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.speaker .speaker-details{
+    margin-left: 120px;
+}
+
+.speaker .speaker-details a{
+    display: inline-block;
+    width: 33%;
+    text-align: left;
+}
+
+.speaker hr{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid blue;
+    margin: 1em 0;
+    padding: 0; 
+}
+
+.speaker .title{
+    color: black;
+}
+
+.speaker #login{
+    display: inline-block;
+    margin: 10px 10px 10px 0px;
+    padding: 10px;
+    background: #5B8AF5;
+    color: white;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+}
+
+.speaker .votes{
+    float: right;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.read-more{
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #8997AB;
+    margin-bottom: 10px;
+}
+
 /*Hotel*/
 
 #hotel a {
