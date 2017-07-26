@@ -13,15 +13,12 @@ block header
           p.main-subtitle.main-smaller-subtitle(data-translatable) Para todos los profesionales del agilismo // For all the agile professionals
 
 block content
+  input#remaining_votes(type="hidden", value=remaining_votes)
   div.button-group.filter-button-group
     button(data-filter='*') Todo
     button(data-filter='.50') Charla larga
     button(data-filter='.20') Charla corta
 
-  if user
-    div
-      | TE QUEDAN: #{remaining_votes} votos por repartir
-  
   div.container
     div.grid.col-xs-12
       each val, index in papers
@@ -61,16 +58,22 @@ block content
         
           if user           
             div.votes-title Vota: 
-            div.votes-container
-              button.vote(class = typeof val.score !== 'number' ? "selected" : "")  0 ptos
+            div.votes-container(current-vote=val.score)
+              button.vote(class = typeof val.score !== 'number' || val.score === 0 ? "selected 0-ptos" : "0 ptos", data-score = 0, data-talk = val.id )  0 ptos
               -for(var i=1; i <= 10; i++){
-                button.vote(class = val.score === i ? "selected" : "")  #{i} ptos
-              -}            
+                - var myClass =  val.score === i ? "selected" : "";
+                - myClass += remaining_votes < i && i > val.score ?  " cannot" : "";
+                button.vote(class =  myClass + " " + i + "-ptos" , data-score = i, data-talk = val.id)  #{i} ptos
+              -}      
+            span #{val.score}
+                
           else
-            a#login(href="/login") ¿Quieres votar? ¡Logueate!
+            div.login-container
+              a#login(href="/login") ¿quieres votar? ¡logueate!
 
           //- Aquí se muestra la información de los votos recibidos.
-          div.info Puntos totales: 
-            span.total-score  #{val.total | 0} pts
+          if user
+            div.info Puntos totales: 
+              span.total-score  #{val.total | 0} pts
          
           

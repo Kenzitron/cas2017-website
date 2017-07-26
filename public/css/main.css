@@ -263,15 +263,18 @@ a:hover {
     height: 1px;
     border: 0;
     border-top: 1px solid #5788FF;
-    margin: 15px 0 30px 0;
+    margin: 15px 0 25px 0;
     padding: 0; 
 }
 
+.login-container{
+    text-align: center;
+    margin-bottom: 10px;
+}
 
 .speaker #login{
-    display: inline-block;
-    margin: 10px 10px 10px 0px;
-    padding: 10px;
+    margin: 10px auto;
+    padding: 10px 30px;
     background: #5B8AF5;
     color: white;
     border-radius: 5px 5px 5px 5px;
@@ -346,6 +349,21 @@ button.vote{
     -webkit-border-radius: 3px 3px 3px 3px;
     outline:none;
 }
+
+
+button.vote.cannot{
+    opacity: 0.7;
+    cursor: default;
+}
+
+button.vote.selected{
+    background: #E73D1E;
+}
+
+input[type="button"]::-moz-focus-inner {
+   border: 0;
+}
+
 
 .votes-container{
     float: right;

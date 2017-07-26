@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/talks', (req, res, next) => {
     let user = req.user;
+    console.log(user);
     Promise.all([
         paperService.getPapersVotedByUser(user), votesService.getRemainingVotes(user)
     ]).then(values => {
