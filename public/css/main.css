@@ -135,9 +135,7 @@ a:hover {
     padding-bottom: 40px
 }
 
-.info-title-text {
-    padding-bottom: 30px;
-}
+
 
 /*text*/
 
@@ -217,14 +215,15 @@ a:hover {
 /* Talkss */
 
 .grid-item{
-    width: 30%;
-    margin: 1%;
-    color: #578AFB;
-    border: 2px solid #B2BCCE;
+    width: 46.5%;
+    padding: 15px;
+    margin:1%;
+    color: #1D1D1B;
+    background: #fff;
+    border: 2px solid #5788FF;
     border-radius: 18px 18px 18px 18px;
     -moz-border-radius: 18px 18px 18px 18px;
     -webkit-border-radius: 18px 18px 18px 18px;
-    padding: 30px;
 }
 
 .speaker img{
@@ -244,7 +243,7 @@ a:hover {
 
 .speaker #speaker-name{
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .speaker .speaker-details{
@@ -253,22 +252,21 @@ a:hover {
 
 .speaker .speaker-details a{
     display: inline-block;
-    width: 33%;
+    margin-right: 15px;
     text-align: left;
+    color: #5788FF;
 }
 
 .speaker hr{
-    display: block;
+    float:left;
+    width: 100%;
     height: 1px;
     border: 0;
-    border-top: 1px solid blue;
-    margin: 1em 0;
+    border-top: 1px solid #5788FF;
+    margin: 15px 0 30px 0;
     padding: 0; 
 }
 
-.speaker .title{
-    color: black;
-}
 
 .speaker #login{
     display: inline-block;
@@ -281,6 +279,14 @@ a:hover {
     -webkit-border-radius: 5px 5px 5px 5px;
 }
 
+.talk-tags{
+    float: left;
+    padding: 5px;
+    margin: 0 10px 5px 0;
+    background: #EAF1F5;
+    color: #5788FF;
+}
+
 .speaker .votes{
     float: right;
     padding: 10px;
@@ -291,10 +297,85 @@ a:hover {
 
 .read-more{
     display: inline-block;
-    padding: 5px 10px;
-    border: 1px solid #8997AB;
+    margin-bottom: 10px;
+    color: #5788FF;
+    cursor: pointer;
+}
+
+.info{
+    float: left;
+    width: 100%;
     margin-bottom: 10px;
 }
+
+.info#format{
+    margin-bottom: 5px;
+}
+
+.info-title{
+    float: left;
+    width: 50px;   
+    padding-top: 5px;    
+}
+
+.tags-container{
+    float: right;
+    width: calc(100% - 50px);
+}
+
+#short-description{
+    float:left;
+}
+
+#large-description{
+    float:left;
+    display: none;
+}
+
+button.vote{
+    display: inline-block;
+    border: none;
+    width: 18%;
+    background: #5788FF;
+    color: white;
+    margin-left: 1%;
+    margin-top: 5px;
+    text-align: center;
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    outline:none;
+}
+
+.votes-container{
+    float: right;
+    width: calc(100% - 50px);
+    margin-bottom: 20px;
+}
+
+
+button.vote.selected{
+    background: #E73D1E;
+}
+
+input[type="button"]::-moz-focus-inner {
+   border: 0;
+}
+
+.votes-title{
+    float: left;
+    width: 50px;
+}
+
+.total-score{
+    color:#E73D1E;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+
+
 
 /*Hotel*/
 

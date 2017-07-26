@@ -21,60 +21,56 @@ block content
   if user
     div
       | TE QUEDAN: #{remaining_votes} votos por repartir
-  div.grid
-    each val, index in papers
-      section(class=val.duration + ' speaker grid-item')
-        div#speaker-title #{val.title}
-        img(src='/images/avatars/' + val.picture, width='100')
-        div.speaker-details
-          div#speaker-name #{val.name}
-          p #{val.about}
-          if (val.twitter)
-            a(href='https://twitter.com/' + val.twitter, target="blank") Twitter
-          if (val.linkedin)
-            a(href=val.linkedin, target="blank") LinkedIn
-          if (val.web != 'http://')
-            a(href=val.web, target="blank") Web
+  
+  div.container
+    div.grid.col-xs-12
+      each val, index in papers
+        section(class=val.duration + ' speaker grid-item')
+          div#speaker-title #{val.title}
+          img(src='/images/avatars/' + val.picture, width='100')
+          div.speaker-details
+            div#speaker-name #{val.name}
+            p #{val.about}
+            if (val.twitter)
+              a(href='https://twitter.com/' + val.twitter, target="blank") twitter
+            if (val.linkedin)
+              a(href=val.linkedin, target="blank") linkedIn
+            if (val.web != 'http://')
+              a(href=val.web, target="blank") web
 
-        hr       
-        span.title Nivel: 
-        span #{val.public}
-        br
-        span.title Formato: 
-        span #{val.duration}
-        br
-        span.title Tags: 
-        span #{val.tags}
-        br
-        br         
-        p #{val.short_description}
-        //- p #[strong Descripción ampliada]: #{val.description}
-        if val.extra_information
-          p #[strong Información adicional]: #{val.extra_information}
+          hr       
+          div.info Nivel: #{val.public}
+          div.info#format Formato: #{val.duration}          
+          div.info 
+            div.info-title Tags: 
+            div.tags-container   
+              each tag, i in val.tags.toLowerCase().split(",")
+                span.talk-tags #{tag}
+                  
+          p#short-description #{val.short_description}
+          p#large-description #[strong Descripción ampliada]: #{val.description}
+          //- if val.extra_information
+          //- p #[strong Información adicional]: #{val.extra_information}
 
-        a.read-more Leer mas
-        hr
-        //- Si el usuario está registrado mostramos la información de su voto al speaker y el formulario para votar
-        if user
-          p RATE SYSTEM
-          p YO VOTÉ POR ESTA CHARLA/TALLER
-            if (val.score)
-              |  #{val.score}
-            else
-              |  0
-            |  PUNTOS
-          div 
-            span Vota:
-            select(talk-id=val.id, name="{val.name")
-              -for(var i = 0;i< user.num_votes + 1 ;i++){
-              option(value="#{i}")  #{i}
-              -}           
-        else
-          a#login(href="/login") ¿Quieres votar? ¡Logueate!
-
-        //- Aquí se muestra la información de los votos recibidos.
-        if (val.total)
-          div.votes #{val.total } VOTOS
-        else
-          div.votes 0 VOTOS 
+          if val.description.length !== 0
+            a.read-more más info  
+          hr       
+          
+          //- Si el usuario está registrado mostramos la información de su voto al speaker y el formulario para votar
+          //- user.num_votes
         
+          if user           
+            div.votes-title Vota: 
+            div.votes-container
+              button.vote(class = typeof val.score !== 'number' ? "selected" : "")  0 ptos
+              -for(var i=1; i <= 10; i++){
+                button.vote(class = val.score === i ? "selected" : "")  #{i} ptos
+              -}            
+          else
+            a#login(href="/login") ¿Quieres votar? ¡Logueate!
+
+          //- Aquí se muestra la información de los votos recibidos.
+          div.info Puntos totales: 
+            span.total-score  #{val.total | 0} pts
+         
+          
