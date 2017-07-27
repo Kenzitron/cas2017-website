@@ -64,7 +64,7 @@
     function AllowVotesUnderCurrentVote(){
         var votesContainers = $(".votes-container");
         $.each(votesContainers, function(index, voteContainer){
-            var currentVote =  $(voteContainer).attr('current-vote'); 
+            var currentVote =  parseInt($(voteContainer).attr('current-vote')) || 0; 
             var classString = getClassStringElementUnderCurrentVote(currentVote);
             console.log(classString);
             $(voteContainer).children(classString).removeClass('cannot');
