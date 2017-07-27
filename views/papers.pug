@@ -22,7 +22,7 @@ block content
   div.container
     div.grid.col-xs-12
       each val, index in papers
-        section(class=val.duration + ' speaker grid-item')
+        section(class=val.duration + ' speaker grid-item', total-score = val.total | 0 )
           div#speaker-title #{val.title}
           img(src='/images/avatars/' + val.picture, width='100')
           div.speaker-details
@@ -63,7 +63,10 @@ block content
               -for(var i=1; i <= 10; i++){
                 - var myClass =  val.score === i ? "selected" : "";
                 - myClass += remaining_votes < i && i > val.score ?  " cannot" : "";
-                button.vote(class =  myClass + " " + i + "-ptos" , data-score = i, data-talk = val.id)  #{i} ptos
+                button.vote(class =  myClass + " " + i + "-ptos" , 
+                  data-score = i, 
+                  data-talk = val.id,
+                  disabled = remaining_votes < i && i > val.score)  #{i} ptos
               -}      
             span #{val.score}
                 

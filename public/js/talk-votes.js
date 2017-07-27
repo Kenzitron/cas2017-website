@@ -9,9 +9,10 @@
             var talkId = $(event.target).attr("data-talk");
             var score = $(event.target).attr("data-score");
             var deltaVote = calculateDeltaRemainingvotes(event);
-            console.log(score, deltaVote);
-            $remaining_votes = $remaining_votes + deltaVote;    
-            updateClassesAfterVote(event, $remaining_votes );            
+            $remaining_votes = $remaining_votes + deltaVote; 
+             $(event.target).parent().attr("current-vote", score);  
+            updateClassesAfterVote(event, $remaining_votes ); 
+            updateTotalScoreOfTheTalk(event, deltaVote);           
             vote(talkId, score);
         });
 
@@ -52,22 +53,28 @@
 
     function updateClassesAfterVote(event, maxPointsAllowed){
         var classesNotAllowed = getClassStringVoteByMaxpointsAllowed(maxPointsAllowed);   
-        $("button.vote").removeClass("cannot");
-        $(classesNotAllowed).addClass("cannot");
+        $("button.vote").prop("disabled", false);
+        $(classesNotAllowed).prop("disabled", true);
         $(event.target).parent().children(".selected").removeClass("selected");
         $(event.target).addClass("selected"); 
         AllowVotesUnderCurrentVote();       
     }
 
-    
+    function updateTotalScoreOfTheTalk(event, deltaVote){
+        var talkItem = $(event.currentTarget).closest(".grid-item");
+        var totalScoreItem = talkItem.find(".total-score");
+        var currentTalkScore = parseInt(talkItem.attr('total-score'));
+        var newTotalScore = currentTalkScore - deltaVote;        
+        totalScoreItem.text(newTotalScore + " pts");
+        talkItem.attr('total-score', newTotalScore);
+    }   
 
     function AllowVotesUnderCurrentVote(){
         var votesContainers = $(".votes-container");
         $.each(votesContainers, function(index, voteContainer){
             var currentVote =  parseInt($(voteContainer).attr('current-vote')) || 0; 
             var classString = getClassStringElementUnderCurrentVote(currentVote);
-            console.log(classString);
-            $(voteContainer).children(classString).removeClass('cannot');
+            $(voteContainer).children(classString).prop("disabled", false);
         })
     }
 
