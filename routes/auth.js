@@ -24,10 +24,10 @@ passport.use('local', new LocalStrategy({
                     return done(err);
                 }
                 if (!user) {
-                    return done(null, false);
+                    return done(null, false, { message: 'Incorrect username.' });
                 }
                 if (user.password !== sha1(password)) {
-                    return done(null, false);
+                    return done(null, false, { message: 'Incorrect password.' });
                 }
                 return done(null, user);
             })
@@ -36,27 +36,47 @@ passport.use('local', new LocalStrategy({
 ));
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
+    done(null, user.id);
 });
 
-passport.deserializeUser(function(user, done) {
-    done(null, user);
-});
-
-/* GET login page. */
-router.get('/login', function(req, res, next) {
-    res.render('login');
+passport.deserializeUser(function(id, done) {
+    sqlite3.findById(id, function(err, user) {
+        return done(err, user);
+    })
 });
 
 /* POST login page */
-router.post('/login',
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    })
-);
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err || !user) {
+            res.json({
+                    auth: 'error',
+                    code: 0
+                });
+        }else {
+            req.logIn(user, function (err) {
+                if (err) {
+                    res.json({
+                        auth: 'error',
+                        code: 0
+                    });
+                }
+                res.json({
+                    auth: 'ok',
+                    code: 1
+                });
+            });
+        }
+    })(req, res, next);
+});
 
+/*
+{
+    successRedirect: '/',
+        failureRedirect: '/login',
+    failureFlash: true
+})
+*/
 /* GET logout page */
 router.get('/logout', function(req, res, next) {
     req.logout();
