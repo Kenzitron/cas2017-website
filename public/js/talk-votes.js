@@ -1,10 +1,12 @@
-(function(){
     var $grid = undefined;
+
+(function(){
     var $remaining_votes = undefined;
     
     $( document ).ready(function() {
+         /* Votaciones */     
         $remaining_votes = parseInt($("#remaining_votes").val());
-        /* Votaciones */        
+
         $("button.vote").click(function(event){            
             var talkId = $(event.target).attr("data-talk");
             var score = $(event.target).attr("data-score");
@@ -14,27 +16,40 @@
             updateClassesAfterVote(event, $remaining_votes ); 
             updateTotalScoreOfTheTalk(event, deltaVote);           
             vote(talkId, score);
-        });
-
-        function calculateDeltaRemainingvotes(event){
-            var oldScore = $(event.target).parent().children(".selected").attr("data-score");
-            var newScore = $(event.target).attr("data-score");
-           return parseInt(oldScore) - parseInt(newScore);
-        }
-      
+        });    
         
 
         /* Isotope */
         $grid = $('.grid').isotope({
             // options
             itemSelector: '.grid-item',
-            layoutMode: 'masonry'
-        });      
+            layoutMode: 'masonry',
+            getSortData: {
+                time: function( itemElem ) { // function
+                    var level = $( itemElem ).find('#format').text();
+                    return level;                    
+                }, // text from querySelector
+                score: '[data-score]', // value of attribute
+                level: function( itemElem ) { // function
+                    var level = $( itemElem ).find('.level').text();
+                    return level;                    
+                }
+            }
+        });  
     
         // filter items on button click
-        $('.filter-button-group').on( 'click', 'button', function() {
+        $('.filter-button-group').on( 'click', 'button', function(event) {
+            $('.filter-button-group button').attr('is-checked', '');
+            $(event.currentTarget).attr('is-checked','is-checked');
             var filterValue = $(this).attr('data-filter');
             $grid.isotope({ filter: filterValue });
+        });
+
+        // sort items on button click
+        $('.sort-by-button-group').on( 'click', 'button', function() {
+            var sortByValue = $(this).attr('data-sort-by');
+            var sortAscending = sortByValue === 'score' ? false : true;
+            $grid.isotope({ sortBy: sortByValue, sortAscending: sortAscending });
         });
 
         /* Descroptions */
@@ -50,6 +65,12 @@
             data: {score: score}
         });
     }
+
+    function calculateDeltaRemainingvotes(event){
+        var oldScore = $(event.target).parent().children(".selected").attr("data-score");
+        var newScore = $(event.target).attr("data-score");
+        return parseInt(oldScore) - parseInt(newScore);
+    }      
 
     function updateClassesAfterVote(event, maxPointsAllowed){
         var classesNotAllowed = getClassStringVoteByMaxpointsAllowed(maxPointsAllowed);   

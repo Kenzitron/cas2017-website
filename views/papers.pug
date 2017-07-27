@@ -14,15 +14,28 @@ block header
 
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
-  div.button-group.filter-button-group
-    button(data-filter='*') Todo
-    button(data-filter='.50') Charla larga
-    button(data-filter='.20') Charla corta
-
   div.container
+    div.button-group.filter-button-group.row
+      div.buttons-title.col-sm-2.col-sm-offset-2  Ver:
+      div.col-sm-5
+        button(data-filter='*') todo
+        button(data-filter='.50') talleres
+        button(data-filter='.20') charlas
+        button(data-filter='.20') votadas por mi
+    div.button-group.sort-by-button-group.row
+      div.buttons-title.col-sm-2.col-sm-offset-2  Ordenar por:
+      div.col-sm-5
+        button(data-sort-by='level') audiencia
+        button(data-sort-by='time') tiempo
+        button(data-sort-by='score') más votados     
+
+
+    
+
+  div#talks-container.container
     div.grid.col-xs-12
       each val, index in papers
-        section(class=val.duration + ' speaker grid-item', total-score = val.total | 0 )
+        section(class=val.duration + ' speaker grid-item', total-score = val.total | 0, data-score = val.total )
           div#speaker-title #{val.title}
           img(src='/images/avatars/' + val.picture, width='100')
           div.speaker-details
@@ -36,7 +49,8 @@ block content
               a(href=val.web, target="blank") web
 
           hr       
-          div.info Nivel: #{val.public}
+          div.info Nivel: 
+            span.level #{val.public}
           div.info#format Formato: #{val.duration}          
           div.info 
             div.info-title Tags: 
@@ -67,9 +81,7 @@ block content
                   data-score = i, 
                   data-talk = val.id,
                   disabled = remaining_votes < i && i > val.score)  #{i} ptos
-              -}      
-            span #{val.score}
-                
+              -}                     
           else
             div.login-container
               a#login(href="/login") ¿quieres votar? ¡logueate!
