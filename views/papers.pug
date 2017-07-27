@@ -14,6 +14,10 @@ block header
 
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
+
+  if !user
+    div.login-container
+      include login.pug
   div.container
     div.button-group.filter-button-group.row
       div.buttons-title.col-sm-2.col-sm-offset-2  Ver:
