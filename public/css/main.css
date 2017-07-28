@@ -230,7 +230,8 @@ a:hover {
     font-weight: bold;
 }
 
-.filter-button-group button[is-checked="is-checked"]{
+.filter-button-group button[is-checked="is-checked"],
+.sort-by-button-group button[is-checked="is-checked"]{
     background: #5788FF;
     color: white;
 }

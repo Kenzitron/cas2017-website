@@ -12,9 +12,10 @@
             var score = $(event.target).attr("data-score");
             var deltaVote = calculateDeltaRemainingvotes(event);
             $remaining_votes = $remaining_votes + deltaVote; 
-             $(event.target).parent().attr("current-vote", score);  
-            updateClassesAfterVote(event, $remaining_votes ); 
-            updateTotalScoreOfTheTalk(event, deltaVote);           
+            $(event.target).parent().attr("current-vote", score);  
+            updateClassesAfterVote(event, $remaining_votes); 
+            updateTotalScoreOfTheTalk(event, deltaVote);     
+            updateVotedByMeStatus(score);      
             vote(talkId, score);
         });    
         
@@ -38,17 +39,19 @@
         });  
     
         // filter items on button click
-        $('.filter-button-group').on( 'click', 'button', function(event) {
+        $('.filter-button-group').on( 'click', 'button', function(event) {           
+            var filterValue = $(this).attr('data-filter');
             $('.filter-button-group button').attr('is-checked', '');
             $(event.currentTarget).attr('is-checked','is-checked');
-            var filterValue = $(this).attr('data-filter');
             $grid.isotope({ filter: filterValue });
         });
 
         // sort items on button click
-        $('.sort-by-button-group').on( 'click', 'button', function() {
+        $('.sort-by-button-group').on( 'click', 'button', function(event) {            
             var sortByValue = $(this).attr('data-sort-by');
             var sortAscending = sortByValue !== 'score';
+            $('.sort-by-button-group button').attr('is-checked', '');
+            $(event.currentTarget).attr('is-checked','is-checked');
             $grid.isotope({ sortBy: sortByValue, sortAscending: sortAscending });
         });
 
@@ -72,13 +75,25 @@
         return parseInt(oldScore) - parseInt(newScore);
     }      
 
-    function updateClassesAfterVote(event, maxPointsAllowed){
-        var classesNotAllowed = getClassStringVoteByMaxpointsAllowed(maxPointsAllowed);   
+    function updateClassesAfterVote(event, remainingVotes){
+        var classesNotAllowed = getClassStringVoteByMaxpointsAllowed(remainingVotes);   
         $("button.vote").prop("disabled", false);
         $(classesNotAllowed).prop("disabled", true);
         $(event.target).parent().children(".selected").removeClass("selected");
         $(event.target).addClass("selected"); 
-        AllowVotesUnderCurrentVote();       
+        FixVotesAllowedCurrentVote(remainingVotes);       
+    }
+
+    function updateVotedByMeStatus(score){
+        var talkItem = $(event.currentTarget).closest('.grid-item');
+        console.log(score);
+        console.log(talkItem);
+        if(parseInt(score) === 0){
+            console.log('removeClass');
+            talkItem.removeClass('voted-by-me');
+        }else{
+            talkItem.addClass('voted-by-me');
+        }
     }
 
     function updateTotalScoreOfTheTalk(event, deltaVote){
@@ -90,11 +105,17 @@
         talkItem.attr('total-score', newTotalScore);
     }   
 
-    function AllowVotesUnderCurrentVote(){
+    /* 
+     * Las votaciones bajo el valor actual, o la suma de la votación actual
+     * más los puntos restantes deben permitirse 
+     */
+    function FixVotesAllowedCurrentVote(remainingVotes){
         var votesContainers = $(".votes-container");
         $.each(votesContainers, function(index, voteContainer){
             var currentVote =  parseInt($(voteContainer).attr('current-vote')) || 0; 
-            var classString = getClassStringElementUnderCurrentVote(currentVote);
+            var classString = getClassStringElementUnderCurrentVote(currentVote); 
+            classString += ',';
+            classString += getClassStringElementAboveCurrentVote(currentVote, remainingVotes);  
             $(voteContainer).children(classString).prop("disabled", false);
         })
     }
@@ -107,6 +128,17 @@
         classString += '.' + currentVote + '-ptos';
         return classString;
     }
+
+    function getClassStringElementAboveCurrentVote(currentVote, remainingVotes){
+        var classString = '';
+        var topLimit = currentVote + remainingVotes;
+        for(var i = currentVote; i <= topLimit; i++ ){
+            classString += '.' + i + '-ptos,';
+        }        
+        classString += topLimit + '-ptos';
+        return classString;
+    }
+   
 
     function getClassStringVoteByMaxpointsAllowed(maxPointsAllowed){
         var classString = "";
