@@ -29,7 +29,7 @@
                     var level = $( itemElem ).find('#format').text();
                     return level;                    
                 }, // text from querySelector
-                score: '[data-score]', // value of attribute
+                score: '[total-score]', // value of attribute
                 level: function( itemElem ) { // function
                     var level = $( itemElem ).find('.level').text();
                     return level;                    
@@ -48,7 +48,7 @@
         // sort items on button click
         $('.sort-by-button-group').on( 'click', 'button', function() {
             var sortByValue = $(this).attr('data-sort-by');
-            var sortAscending = sortByValue === 'score' ? false : true;
+            var sortAscending = sortByValue !== 'score';
             $grid.isotope({ sortBy: sortByValue, sortAscending: sortAscending });
         });
 

@@ -18,10 +18,10 @@ block content
     div.button-group.filter-button-group.row
       div.buttons-title.col-sm-2.col-sm-offset-2  Ver:
       div.col-sm-5
-        button(data-filter='*') todo
+        button(data-filter='*', is-checked='is-checked') todo
         button(data-filter='.50') talleres
         button(data-filter='.20') charlas
-        button(data-filter='.20') votadas por mi
+        button(data-filter='.voted-by-me') votadas por mi
     div.button-group.sort-by-button-group.row
       div.buttons-title.col-sm-2.col-sm-offset-2  Ordenar por:
       div.col-sm-5
@@ -35,7 +35,9 @@ block content
   div#talks-container.container
     div.grid.col-xs-12
       each val, index in papers
-        section(class=val.duration + ' speaker grid-item', total-score = val.total | 0, data-score = val.total )
+        section(class = val.duration + ' speaker grid-item', 
+                class = Number.isInteger(val.score) && val.score > 0 ? 'voted-by-me' : '',
+                total-score = val.total | 0)
           div#speaker-title #{val.title}
           img(src='/images/avatars/' + val.picture, width='100')
           div.speaker-details
