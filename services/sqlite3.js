@@ -71,9 +71,22 @@ module.exports.insertPaper = function(hash, name, about, picture, email, twitter
 
     stmt.finalize();
 };
+
 module.exports.findByUsername = function(username, fn) {
     const stmt = db.prepare('SELECT * FROM users WHERE username = ?');
     stmt.bind(username);
+
+    stmt.get(function(err, row) {
+        if (err || !row)
+            return fn(null, null);
+
+        return fn(null, row);
+    });
+};
+
+module.exports.findById = function(id, fn) {
+    const stmt = db.prepare('SELECT * FROM users WHERE id = ?');
+    stmt.bind(id);
 
     stmt.get(function(err, row) {
         if (err || !row)

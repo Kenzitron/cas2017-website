@@ -57,6 +57,34 @@
 
         /* Descroptions */
         $(".speaker .read-more").on('click',showLargeDescription);
+
+        $('#login').submit(function(e){
+            e.preventDefault();
+            let validForm = true;
+            $.each($(this).serializeArray(), function(i, field) {
+                if (field.value === undefined || field.value === ''){
+                    alert('ERR CLASS ADDED TO FIELD');
+                    $('#login input[name="'+field.name+'"]').addClass('err');
+                    validForm = false;
+                }
+            });
+
+            if (validForm) {
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        if (data.code === 0){
+                            alert('DATOS INCORRECTOS!!');
+                        }else{
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            return false;
+        });
     });
 
 
