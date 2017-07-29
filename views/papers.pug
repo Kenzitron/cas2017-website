@@ -15,9 +15,6 @@ block header
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
 
-  if !user
-    div.login-container
-      include login.pug
   div.container
     div.button-group.filter-button-group.row
       div.buttons-title.col-sm-2.col-sm-offset-2  Ver:
@@ -89,8 +86,8 @@ block content
                   disabled = remaining_votes < i && i > val.score + remaining_votes)  #{i} ptos
               -}                     
           else
-            div.login-container
-              a#login(href="/login") ¿quieres votar? ¡logueate!
+            div.want-vote-message(onClick='showLogin()')
+              a.login ¿quieres votar? ¡logueate!
 
           //- Aquí se muestra la información de los votos recibidos.
           if user

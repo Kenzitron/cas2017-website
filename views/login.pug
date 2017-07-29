@@ -1,13 +1,17 @@
 <form action="/login" method="post" id="login">
 <div>
-<label>Username:</label>
-<input type="text" name="user"/>
+    <div class="icon-type email">
+        <img src="images/email.png">
+    </div>
+    <input id="username" type="text" name="user" placeholder="Username"/>
 </div>
 <div>
-<label>Password:</label>
-<input type="password" name="pass"/>
-</div>
-<div>
-<input type="submit" value="Log In"/>
+    <div class="icon-type password">
+        <img src="images/llave.png">
+    </div>
+    <input id="password" type="password" name="pass" placeholder="Password"/>
+    <div id="submit" class="icon-type"> 
+         <img src="images/flecha.png">
+    </div>
 </div>
 </form>

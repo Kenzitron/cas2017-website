@@ -1,6 +1,5 @@
-    var $grid = undefined;
-
 (function(){
+    var $grid = undefined;
     var $remaining_votes = undefined;
     
     $( document ).ready(function() {
@@ -55,9 +54,27 @@
             $grid.isotope({ sortBy: sortByValue, sortAscending: sortAscending });
         });
 
-        /* Descroptions */
+        /* Descriptions */
         $(".speaker .read-more").on('click',showLargeDescription);
 
+
+        /* Login */
+
+        $("#popup-background").click(function(){
+            $("#popup-background").css("display", "none");
+        })
+        
+          // aquí le pasamos la clase o id de nuestro div a centrar (en este caso "caja")
+        $('#popup').css({
+            position:'absolute',
+            left: ($(window).width() - $('#popup').outerWidth())/2,
+            top: ($(window).height() - $('#popup').outerHeight())/2 
+        });
+
+        $("#submit").click(function(){
+            $( "#login" ).submit();
+        })
+        
         $('#login').submit(function(e){
             e.preventDefault();
             let validForm = true;
@@ -78,6 +95,7 @@
                         if (data.code === 0){
                             alert('DATOS INCORRECTOS!!');
                         }else{
+                            $("#popup-background").css("display", "none");
                             location.reload();
                         }
                     }
@@ -205,3 +223,9 @@
         });
     }
 })();
+
+
+function showLogin(){
+    $("#popup-background").css("display", "block");
+    return false;
+}
