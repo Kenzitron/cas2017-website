@@ -21,37 +21,38 @@ router.get('/talks', (req, res, next) => {
     });
 });
 
-
-router.get('/api/votes', auth.ensureIsAuthenticated, function(req, res, next){
+router.get('/api/votes', auth.ensureIsAuthenticated, function(req, res, next) {
     sqlite3.getVotesByUserId(req.user.id).then(votes => res.json(votes));
 });
 
-router.post('/api/paper/:paperId/vote', auth.ensureIsAuthenticated, function(req, res, next){
+router.post('/api/paper/:paperId/vote', auth.ensureIsAuthenticated, function(req, res, next) {
     let user = req.user;
     let score = Number.parseInt(req.body.score);
-    let paperId = Number.parseInt(req.params.paperId);  
+    let paperId = Number.parseInt(req.params.paperId);
     sqlite3.getVotesByUserId(user.id).then((userVotes) => {
-        let paperVoteIndex = userVotes.findIndex(vote => { return vote.paper_id === paperId});
-        if(paperVoteIndex >= 0){
+        let paperVoteIndex = userVotes.findIndex(vote => {
+            return vote.paper_id === paperId
+        });
+        if (paperVoteIndex >= 0) {
             userVotes[paperVoteIndex].score = score;
-        }else{
+        } else {
             userVotes.push({
-                user_id: user.id, 
+                user_id: user.id,
                 paper_id: paperId,
                 score: score
             })
         }
         let sumVotes = votesService.getScoreTotal(userVotes);
-        if (sumVotes > user.num_votes){
-            res.status(409).send("Votes can not exceed 10 points");
+        if (sumVotes > user.num_votes) {
+            res.status(409).send('Votes can not exceed 10 points');
         }
-        if(paperVoteIndex < 0){
+        if (paperVoteIndex < 0) {
             sqlite3.insertVote(user.id, paperId, score);
-        }else{
+        } else {
             sqlite3.updateVote(user.id, paperId, score);
         }
-        res.json({ userId : user.id, paperId : paperId, score : score });
-    })    
+        res.json({userId: user.id, paperId: paperId, score: score});
+    })
 });
 
 router.get('/api/talks', auth.ensureIsAuthenticated, function(req, res, next) {

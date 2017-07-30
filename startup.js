@@ -8,7 +8,7 @@ const sqlite = require('./services/sqlite3');
 
 sqlite.createTables();
 
-var content = fs.readFileSync('./bin/users.csv', 'utf8');
+let content = fs.readFileSync('./bin/users.csv', 'utf8');
 parse(content, {columns: null, delimiter: ';', trim: true}, function(err, rows) {
     for (let row of rows) {
         let votes = 10;
@@ -24,14 +24,14 @@ parse(content, {columns: null, delimiter: ';', trim: true}, function(err, rows) 
 
 
 content = fs.readFileSync('./bin/C4P-report.csv', 'utf8');
-parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) { 
+parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) {
     for (let row of rows) {
         let img = row[3].split('/').pop();
-        let tmp = (row[5].split('/').pop()).trim();
+        let tmp = row[5].split('/').pop().trim();
 
         let twitter = tmp;
-        if (tmp.length > 0 )
-            twitter = tmp.startsWith('@') ? tmp : "@" + tmp;
+        if (tmp.length > 0)
+            twitter = tmp.startsWith('@') ? tmp : '@' + tmp;
 
         const tags = [
             row[12], row[13], row[14], row[15], row[16], row[17], row[18],
@@ -43,15 +43,12 @@ parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) 
             row[9], row[10], row[11], tags.join(','), row[25], row[26], row[27]
         );
     }
-    
+
 });
 
-sqlite.insertVote(2,1,5);
-sqlite.insertVote(1,1,5);
-sqlite.insertVote(1,3,2);
-sqlite.insertVote(3,2,4);
-sqlite.insertVote(2,3,1);
-sqlite.insertVote(4,4,2);
-
-
-
+sqlite.insertVote(2, 1, 5);
+sqlite.insertVote(1, 1, 5);
+sqlite.insertVote(1, 3, 2);
+sqlite.insertVote(3, 2, 4);
+sqlite.insertVote(2, 3, 1);
+sqlite.insertVote(4, 4, 2);
