@@ -1,6 +1,11 @@
 extends layout
 
 block header
+  if user
+    div#votes-counter 
+      | Te quedan 
+      span#my-remaining-votes #{remaining_votes}
+      |  puntos
   section#main-content
     div.container
       div.row
@@ -87,7 +92,7 @@ block content
               -}                     
           else
             div.want-vote-message(onClick='showLogin()')
-              a.login ¿quieres votar? ¡logueate!
+              a.login ¿quieres votar? ¡identífícate!      
 
           //- Aquí se muestra la información de los votos recibidos.
           if user

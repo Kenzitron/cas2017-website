@@ -2,7 +2,8 @@
     var $grid = undefined;
     var $remaining_votes = undefined;
     
-    $( document ).ready(function() {
+    $( document ).ready(function() {      
+
          /* Votaciones */     
         $remaining_votes = parseInt($("#remaining_votes").val());
 
@@ -15,6 +16,7 @@
             updateClassesAfterVote(event, $remaining_votes); 
             updateTotalScoreOfTheTalk(event, deltaVote);     
             updateVotedByMeStatus(score);      
+            updateRemainingVotes($remaining_votes);
             vote(talkId, score);
         });    
         
@@ -60,6 +62,10 @@
 
         /* Login */
 
+        $('#popup.login-container').click(function(event){
+            event.stopPropagation()
+        });
+
         $("#popup-background").click(function(){
             $("#popup-background").css("display", "none");
         })
@@ -74,14 +80,14 @@
         $("#submit").click(function(){
             $( "#login" ).submit();
         })
-        
+       
+        /* Login */        
         $('#login').submit(function(e){
             e.preventDefault();
             let validForm = true;
             $.each($(this).serializeArray(), function(i, field) {
                 if (field.value === undefined || field.value === ''){
-                    alert('ERR CLASS ADDED TO FIELD');
-                    $('#login input[name="'+field.name+'"]').addClass('err');
+                    $('#popup.login-container').addClass('error');
                     validForm = false;
                 }
             });
@@ -93,7 +99,7 @@
                     data: $(this).serialize(),
                     success: function (data) {
                         if (data.code === 0){
-                            alert('DATOS INCORRECTOS!!');
+                            $('#popup.login-container').addClass('error');
                         }else{
                             $("#popup-background").css("display", "none");
                             location.reload();
@@ -149,7 +155,11 @@
         var newTotalScore = currentTalkScore - deltaVote;        
         totalScoreItem.text(newTotalScore + " pts");
         talkItem.attr('total-score', newTotalScore);
-    }   
+    }
+    
+    function updateRemainingVotes(remainingVotes){
+        $("#my-remaining-votes").text(remainingVotes);
+    }
 
     /* 
      * Las votaciones bajo el valor actual, o la suma de la votación actual

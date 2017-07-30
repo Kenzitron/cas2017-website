@@ -1,17 +1,20 @@
 <form action="/login" method="post" id="login">
 <div>
     <div class="icon-type email">
-        <img src="images/email.png">
+        <img class="login-icon" src="images/email.png">
+        <img class="login-alert" src="images/alerta.png">
     </div>
     <input id="username" type="text" name="user" placeholder="Username"/>
 </div>
 <div>
     <div class="icon-type password">
-        <img src="images/llave.png">
+        <img class="login-icon" src="images/llave.png">
+        <img class="login-alert" src="images/alerta.png">
     </div>
-    <input id="password" type="password" name="pass" placeholder="Password"/>
-    <div id="submit" class="icon-type"> 
-         <img src="images/flecha.png">
+    <input id="password" type="password" name="pass" placeholder="Password" />
+    
+    <div id="submit" class="icon-type" data-toggle="popover" data-content="UPS!"> 
+        <img src="images/flecha.png">      
     </div>
 </div>
 </form>
