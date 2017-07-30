@@ -8,11 +8,6 @@ const paperService = require('../services/paperService');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', {title: 'Express'});
-});
-
-
-router.get('/talks', (req, res, next) => {
     let user = req.user;
     Promise.all([
         paperService.getPapersVotedByUser(user), votesService.getRemainingVotes(user)
