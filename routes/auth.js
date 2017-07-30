@@ -24,10 +24,10 @@ passport.use('local', new LocalStrategy({
                     return done(err);
                 }
                 if (!user) {
-                    return done(null, false, { message: 'Incorrect username.' });
+                    return done(null, false, {message: 'Incorrect username.'});
                 }
                 if (user.password !== sha1(password)) {
-                    return done(null, false, { message: 'Incorrect password.' });
+                    return done(null, false, {message: 'Incorrect password.'});
                 }
                 return done(null, user);
             })
@@ -50,11 +50,11 @@ router.post('/login', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err || !user) {
             res.json({
-                    auth: 'error',
-                    code: 0
-                });
-        }else {
-            req.logIn(user, function (err) {
+                auth: 'error',
+                code: 0
+            });
+        } else {
+            req.logIn(user, function(err) {
                 if (err) {
                     res.json({
                         auth: 'error',
