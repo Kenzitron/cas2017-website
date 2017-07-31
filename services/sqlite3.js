@@ -84,6 +84,18 @@ module.exports.findByUsername = function(username, fn) {
     });
 };
 
+module.exports.findByUsernameAndPassword = function(username, password, fn) {
+    const stmt = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?');
+    stmt.bind(username, password);
+
+    stmt.get(function(err, row) {
+        if (err || !row)
+            return fn(null, null);
+
+        return fn(null, row);
+    });
+};
+
 module.exports.findById = function(id, fn) {
     const stmt = db.prepare('SELECT * FROM users WHERE id = ?');
     stmt.bind(id);
