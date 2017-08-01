@@ -40,7 +40,7 @@ parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) 
 
         sqlite.insertPaper(
             row[0], row[1], row[2], img, twitter, row[4], row[6], row[7], row[8],
-            row[9], row[10], row[11], tags.join(','), row[25], row[26], row[27]
+            row[9], row[10], row[11], tags.join(';'), row[25], row[26], row[27]
         );
     }
     
