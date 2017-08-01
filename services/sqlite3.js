@@ -25,7 +25,8 @@ module.exports.createTables = function() {
         'tags TEXT, ' +
         'public TEXT, ' +
         'duration TEXT, ' +
-        'date TEXT)');
+        'date TEXT, ' +
+        'language TEXT)');
     console.log('La tabla papers ha sido correctamente creada');
 
 
@@ -64,10 +65,10 @@ module.exports.updateVote = function(userId, paperId, score){
 
 module.exports.insertPaper = function(hash, name, about, picture, email, twitter, linkedin, web, title,
                                       short_description, description, extra_information, tags, audience, duration,
-                                      date) {
-    const stmt = db.prepare('INSERT INTO papers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+                                      date, lang) {
+    const stmt = db.prepare('INSERT INTO papers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
     stmt.run(null, hash, name, about, picture, email, twitter, linkedin,
-        web, title, short_description, description, extra_information, tags, audience, duration, date);
+        web, title, short_description, description, extra_information, tags, audience, duration, date, lang);
 
     stmt.finalize();
 };

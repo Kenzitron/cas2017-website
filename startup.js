@@ -8,7 +8,7 @@ const sqlite = require('./services/sqlite3');
 
 sqlite.createTables();
 
-var content = fs.readFileSync('./bin/users.csv', 'utf8');
+var content = fs.readFileSync('./bin/users-final.csv', 'utf8');
 parse(content, {columns: null, delimiter: ';', trim: true}, function(err, rows) {
     for (let row of rows) {
         let votes = 10;
@@ -23,7 +23,7 @@ parse(content, {columns: null, delimiter: ';', trim: true}, function(err, rows) 
 });
 
 
-content = fs.readFileSync('./bin/C4P-report.csv', 'utf8');
+content = fs.readFileSync('./bin/C4P-report_en.csv', 'utf8');
 parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) { 
     for (let row of rows) {
         let img = row[3].split('/').pop();
@@ -40,7 +40,7 @@ parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) 
 
         sqlite.insertPaper(
             row[0], row[1], row[2], img, twitter, row[4], row[6], row[7], row[8],
-            row[9], row[10], row[11], tags.join(';'), row[25], row[26], row[27]
+            row[9], row[10], row[11], tags.join(';'), row[25], row[26], row[27], 'en'
         );
     }
     
