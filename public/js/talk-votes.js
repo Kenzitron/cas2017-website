@@ -77,11 +77,7 @@
             top: ($(window).height() - $('#popup').outerHeight())/2 
         });
 
-        $("#submit").click(function(){
-            $( "#login" ).submit();
-        })
-       
-        /* Login */        
+        /* Login */
         $('#login').submit(function(e){
             e.preventDefault();
             let validForm = true;
@@ -237,5 +233,6 @@
 
 function showLogin(){
     $("#popup-background").css("display", "block");
+    $("#username").focus();
     return false;
 }
