@@ -366,7 +366,7 @@ a:hover {
     border: 0;
     border-top: 1px solid #5788FF;
     margin: 15px 0 25px 0;
-    padding: 0; 
+    padding: 0;
 }
 
 .want-vote-message{
@@ -396,8 +396,8 @@ a:hover {
 
 .login-container input{
     background-color: white;
-    padding: 5px; 
-    height: 40px;  
+    padding: 5px;
+    height: 40px;
     width: 200px;
     margin-bottom: 15px;
     -webkit-appearance: none;
@@ -460,6 +460,7 @@ a:hover {
     -moz-border-radius: 0px 5px 5px 0px;
     -webkit-border-radius: 0px 5px 5px 0px;
     cursor: pointer;
+    background: url('../images/flecha.png') center no-repeat
 }
 
 #submit img{
@@ -521,8 +522,8 @@ input:-webkit-autofill {
 
 .info-title{
     float: left;
-    width: 50px;   
-    padding-top: 5px;    
+    width: 50px;
+    padding-top: 5px;
 }
 
 .tags-container{
