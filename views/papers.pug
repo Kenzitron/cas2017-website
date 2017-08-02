@@ -21,27 +21,45 @@ block content
   input#remaining_votes(type="hidden", value=remaining_votes)
 
   div.container.hidden-xs
-    div.button-group.filter-button-group.row
-      div.buttons-title.col-sm-2.col-sm-offset-2  Ver:
-      div.col-sm-8
-        button(data-filter='*', is-checked='is-checked') todo
-        button(data-filter='.50') talleres
-        button(data-filter='.20') charlas
-        button(data-filter='.voted-by-me') votadas por mi
-    div.button-group.sort-by-button-group.row
-      div.buttons-title.col-sm-2.col-sm-offset-2  Ordenar por:
-      div.col-sm-8
-        button(data-sort-by='level') audiencia
-        button(data-sort-by='time') tiempo
-        button(data-sort-by='score') más votados     
-
+    div#filters-desktop-container.row
+      div.button-group.filter-button-group.col-sm-6
+        div.buttons-title  Ver:
+        div
+          button(data-filter='*', is-checked='is-checked') todo
+          button(data-filter='.50') talleres
+          button(data-filter='.20') charlas
+          button(data-filter='.voted-by-me') votadas por mi
+      div.button-group.sort-by-button-group.col-sm-6
+        div.buttons-title Ordenar por:
+        div
+          button(data-sort-by='level') audiencia
+          button(data-sort-by='time') tiempo
+          button(data-sort-by='score') más votados     
+      div.button-group.filter-span-group.col-sm-12
+        div.buttons-title Tags:
+        div.filter-tags-container
+          span(data-filter='*') todas
+          span(data-filter='.casos-reales') casos reales
+          span(data-filter='.scrum') scrum
+          span(data-filter='.desarrollo') desarrollo
+          span(data-filter='.agile-a-gran-escala') agile a gran escala
+          span(data-filter='.kanban') kanban
+          span(data-filter='.transformación-digital') transformación digital
+          span(data-filter='.agile por y para negocio') agile por y para negocio
+          span(data-filter='.felicidad') felicidad
+          span(data-filter='.personas-y-habilidad') personas y habilidad
+          span(data-filter='.cultura-y-comunidad') cultura y comunidad
+          span(data-filter='.lean') lean
+          span(data-filter='.organización-y-empresas') organización y empresas
+          span(data-filter='.frameworks-agile') frameworks agile
 
     
 
   div#talks-container.container
     div.grid.row
       each val, index in papers
-        section(class = val.duration + ' speaker col-sm-12', 
+        section(class = val.duration + ' speaker col-sm-12',
+                class = val.tags.toLowerCase().replace(/\s/g, '-').split(';'),
                 class="grid-item col-sm-6 col-xs-12",
                 class = Number.isInteger(val.score) && val.score > 0 ? 'voted-by-me' : '',
                 total-score = val.total | 0)
@@ -65,7 +83,7 @@ block content
             div.info 
               div.info-title Tags: 
               div.tags-container   
-                each tag, i in val.tags.toLowerCase().split(",")
+                each tag, i in val.tags.toLowerCase().split(";")
                   span.talk-tags #{tag}
                     
             p#short-description #{val.short_description}

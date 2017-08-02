@@ -247,12 +247,41 @@ a:hover {
     }
  }
 
-
-.filter-button-group, .sort-by-button-group{
+#filters-desktop-container{
+    background: white;
+}
+.filter-button-group, .sort-by-button-group, .filter-span-group{
     color: #5788FF;
     font-weight: bold;
-    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #5788FF;
 }
+
+.filter-button-group{
+    border-right: none;
+}
+
+.filter-span-group{
+    border-top: none;
+    padding-top: 20px;
+}
+
+.filter-span-group span{
+    display: inline-block; 
+    padding: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background: #EBF1F8;
+    cursor: pointer;
+}
+
+
+.filter-tags-container{
+    float: left;
+    width: calc(100% - 70px);
+    margin-left: 10px;
+}
+
 
 .filter-button-group button, .sort-by-button-group button{
     padding: 5px 15px;
@@ -263,15 +292,23 @@ a:hover {
     font-weight: bold;
 }
 
+
 .filter-button-group button[is-checked="is-checked"],
-.sort-by-button-group button[is-checked="is-checked"]{
+.sort-by-button-group button[is-checked="is-checked"],
+.filter-span-group span[is-checked="is-checked"]{
     background: #5788FF;
-    color: white;
+    color: white;  
 }
 
 .buttons-title{
     text-align: right;
     padding-top: 7px;
+    float: left;
+}
+
+.filter-button-group .buttons-title, 
+.filter-span-group .buttons-title{
+    width: 60px;
 }
 
 .grid-item{
