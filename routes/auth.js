@@ -19,15 +19,12 @@ passport.use('local', new LocalStrategy({
             // Find the user by username.  If there is no user with the given
             // username, or the password is not correct, set the user to `false` to
             // indicate failure.  Otherwise, return the authenticated `user`.
-            sqlite3.findByUsername(username, function(err, user) {
+            sqlite3.findByUsernameAndPassword(username, sha1(password), function(err, user) {
                 if (err) {
                     return done(err);
                 }
                 if (!user) {
                     return done(null, false, { message: 'Incorrect username.' });
-                }
-                if (user.password !== sha1(password)) {
-                    return done(null, false, { message: 'Incorrect password.' });
                 }
                 return done(null, user);
             })
