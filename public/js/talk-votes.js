@@ -138,10 +138,7 @@
 
     function updateVotedByMeStatus(score){
         var talkItem = $(event.currentTarget).closest('.grid-item');
-        console.log(score);
-        console.log(talkItem);
         if(parseInt(score) === 0){
-            console.log('removeClass');
             talkItem.removeClass('voted-by-me');
         }else{
             talkItem.addClass('voted-by-me');

@@ -93,19 +93,6 @@ a:hover {
     border: 0;
 }
 
-#action-button-mobile {
-    background: #6B4DFB;
-    color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: none;
-    position: fixed;
-    bottom: 0;
-    z-index: 9999;
-    text-align: center;
-    text-decoration: none;
-}
-
 .action-button {
     background: #648DFF;
     border: none;
@@ -214,17 +201,25 @@ a:hover {
 
 /* Talks */
 
+
+
+
 #votes-counter{
     position: fixed;
-    top: 50%;
-    left: 15px;
+    border-radius: 100px;
     z-index: 2000;
-    padding: 15px 30px;
-    border-radius: 7px;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
     color: white;
     font-weight: bold;
+    padding: 0;
+    width: 75px;
+    height: 75px;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 40px;
+    bottom: 10px;
+    top: inherit;
+    left: inherit;
+    right: 40px;
     background: rgba(95,14,226,1);
     background: -moz-linear-gradient(left, rgba(95,14,226,1) 0%, rgba(103,29,249,1) 23%, rgba(92,100,248,1) 55%, rgba(92,143,243,1) 86%, rgba(89,170,240,1) 100%);
     background: -webkit-gradient(left top, right top, color-stop(0%, rgba(95,14,226,1)), color-stop(23%, rgba(103,29,249,1)), color-stop(55%, rgba(92,100,248,1)), color-stop(86%, rgba(92,143,243,1)), color-stop(100%, rgba(89,170,240,1)));
@@ -234,6 +229,25 @@ a:hover {
     background: linear-gradient(to right, rgba(95,14,226,1) 0%, rgba(103,29,249,1) 23%, rgba(92,100,248,1) 55%, rgba(92,143,243,1) 86%, rgba(89,170,240,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5f0ee2', endColorstr='#59aaf0', GradientType=1 );
 }
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    #votes-counter{        
+        top: 40%;
+        left: 15px;
+        padding: 15px 30px;
+        border-radius: 7px;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        width: auto;
+        height: auto;
+        right: inherit;
+        bottom: inherit;
+        font-size: 14px;
+    }
+ }
+
+
 .filter-button-group, .sort-by-button-group{
     color: #5788FF;
     font-weight: bold;
@@ -261,15 +275,16 @@ a:hover {
 }
 
 .grid-item{
-    width: 46.5%;
-    padding: 15px;
-    margin:1%;
+    padding: 10px;
+}
+.grid-item section{    
     color: #1D1D1B;
     background: #fff;
     border: 2px solid ;
     border-radius: 18px 18px 18px 18px;
     -moz-border-radius: 18px 18px 18px 18px;
     -webkit-border-radius: 18px 18px 18px 18px;
+    float: left;
 }
 
 #talks-container{
@@ -487,10 +502,11 @@ input:-webkit-autofill {
     display: none;
 }
 
+
 button.vote{
     display: inline-block;
     border: none;
-    width: 18%;
+    width: 24%;
     background: #5788FF;
     color: white;
     margin-left: 1%;
@@ -500,6 +516,12 @@ button.vote{
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;
     outline:none;
+}
+
+@media (min-width: 768px) {
+    button.vote{
+        width: 18%;
+    }
 }
 
 

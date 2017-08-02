@@ -2,10 +2,10 @@ extends layout
 
 block header
   if user
-    div#votes-counter 
-      | Te quedan 
+    div#votes-counter
+      span.hidden-xs Te quedan 
       span#my-remaining-votes #{remaining_votes}
-      |  puntos
+      span.hidden-xs  puntos
   section#main-content
     div.container
       div.row
@@ -20,17 +20,17 @@ block header
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
 
-  div.container
+  div.container.hidden-xs
     div.button-group.filter-button-group.row
       div.buttons-title.col-sm-2.col-sm-offset-2  Ver:
-      div.col-sm-5
+      div.col-sm-8
         button(data-filter='*', is-checked='is-checked') todo
         button(data-filter='.50') talleres
         button(data-filter='.20') charlas
         button(data-filter='.voted-by-me') votadas por mi
     div.button-group.sort-by-button-group.row
       div.buttons-title.col-sm-2.col-sm-offset-2  Ordenar por:
-      div.col-sm-5
+      div.col-sm-8
         button(data-sort-by='level') audiencia
         button(data-sort-by='time') tiempo
         button(data-sort-by='score') más votados     
@@ -39,64 +39,67 @@ block content
     
 
   div#talks-container.container
-    div.grid.col-xs-12
+    div.grid.row
       each val, index in papers
-        section(class = val.duration + ' speaker grid-item', 
+        section(class = val.duration + ' speaker col-sm-12', 
+                class="grid-item col-sm-6 col-xs-12",
                 class = Number.isInteger(val.score) && val.score > 0 ? 'voted-by-me' : '',
                 total-score = val.total | 0)
-          div#speaker-title #{val.title}
-          img(src='/images/avatars/' + val.picture, width='100')
-          div.speaker-details
-            div#speaker-name #{val.name}
-            p #{val.about}
-            if (val.twitter)
-              a(href='https://twitter.com/' + val.twitter, target="blank") twitter
-            if (val.linkedin)
-              a(href=val.linkedin, target="blank") linkedIn
-            if (val.web != 'http://')
-              a(href=val.web, target="blank") web
+          section(class = ' speaker col-sm-12')
+            div#speaker-title #{val.title}
+            img(src='/images/avatars/' + val.picture, width='100')
+            div.speaker-details
+              div#speaker-name #{val.name}
+              p #{val.about}
+              if (val.twitter)
+                a(href='https://twitter.com/' + val.twitter, target="blank") twitter
+              if (val.linkedin)
+                a(href=val.linkedin, target="blank") linkedIn
+              if (val.web != 'http://')
+                a(href=val.web, target="blank") web
 
-          hr       
-          div.info Nivel: 
-            span.level #{val.public}
-          div.info#format Formato: #{val.duration}          
-          div.info 
-            div.info-title Tags: 
-            div.tags-container   
-              each tag, i in val.tags.toLowerCase().split(",")
-                span.talk-tags #{tag}
-                  
-          p#short-description #{val.short_description}
-          p#large-description #[strong Descripción ampliada]: #{val.description}
-          //- if val.extra_information
-          //- p #[strong Información adicional]: #{val.extra_information}
+            hr       
+            div.info Nivel: 
+              span.level #{val.public}
+            div.info#format Formato: #{val.duration}          
+            div.info 
+              div.info-title Tags: 
+              div.tags-container   
+                each tag, i in val.tags.toLowerCase().split(",")
+                  span.talk-tags #{tag}
+                    
+            p#short-description #{val.short_description}
+            p#large-description #[strong Descripción ampliada]: #{val.description}
+            //- if val.extra_information
+            //- p #[strong Información adicional]: #{val.extra_information}
 
-          if val.description.length !== 0
-            a.read-more más info  
-          hr       
+            if val.description.length !== 0
+              a.read-more más info  
+            hr       
+            
+            //- Si el usuario está registrado mostramos la información de su voto al speaker y el formulario para votar
+            //- user.num_votes
           
-          //- Si el usuario está registrado mostramos la información de su voto al speaker y el formulario para votar
-          //- user.num_votes
-        
-          if user           
-            div.votes-title Vota: 
-            div.votes-container(current-vote=val.score)
-              button.vote(class = typeof val.score !== 'number' || val.score === 0 ? "selected 0-ptos" : "0 ptos", data-score = 0, data-talk = val.id )  0 ptos
-              -for(var i=1; i <= 10; i++){
-                - var myClass =  val.score === i ? "selected" : "";
-                - myClass += remaining_votes < i && i > val.score ?  " cannot" : "";
-                button.vote(class =  myClass + " " + i + "-ptos" , 
-                  data-score = i, 
-                  data-talk = val.id,
-                  disabled = remaining_votes < i && i > val.score + remaining_votes)  #{i} ptos
-              -}                     
-          else
-            div.want-vote-message(onClick='showLogin()')
-              a.login ¿quieres votar? ¡identífícate!      
+            div
+              if user           
+                div.votes-title Vota: 
+                div.votes-container(current-vote=val.score)
+                  button.vote(class = typeof val.score !== 'number' || val.score === 0 ? "selected 0-ptos" : "0 ptos", data-score = 0, data-talk = val.id )  0 ptos
+                  -for(var i=1; i <= 10; i++){
+                    - var myClass =  val.score === i ? "selected" : "";
+                    - myClass += remaining_votes < i && i > val.score ?  " cannot" : "";
+                    button.vote(class =  myClass + " " + i + "-ptos" , 
+                      data-score = i, 
+                      data-talk = val.id,
+                      disabled = remaining_votes < i && i > val.score + remaining_votes)  #{i} ptos
+                  -}                     
+              else
+                div.want-vote-message(onClick='showLogin()')
+                  a.login ¿quieres votar? ¡identífícate!      
 
-          //- Aquí se muestra la información de los votos recibidos.
-          if user
-            div.info Puntos totales: 
-              span.total-score  #{val.total | 0} pts
-         
+              //- Aquí se muestra la información de los votos recibidos.
+              if user
+                div.info Puntos totales: 
+                  span.total-score  #{val.total | 0} pts
+            
           
