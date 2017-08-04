@@ -22,12 +22,12 @@ block content
 
   div.container.hidden-xs
     div#filters-desktop-container.row
-      div.button-group.filter-button-group.col-sm-6
+      div(data-filter-group='type', class='button-group filter-button-group col-sm-6')
         div.buttons-title  Ver:
         div
           button(data-filter='*', is-checked='is-checked') todo
-          button(data-filter='.50') talleres
-          button(data-filter='.20') charlas
+          button(data-filter='.Taller') talleres
+          button(data-filter='.Charla') charlas
           button(data-filter='.voted-by-me') votadas por mi
       div.button-group.sort-by-button-group.col-sm-6
         div.buttons-title Ordenar por:
@@ -35,10 +35,10 @@ block content
           button(data-sort-by='level') audiencia
           button(data-sort-by='time') tiempo
           button(data-sort-by='score') más votados     
-      div.button-group.filter-span-group.col-sm-12
+      div(data-filter-group='tags', class='button-group filter-span-group col-sm-12')
         div.buttons-title Tags:
         div.filter-tags-container
-          span(data-filter='*') todas
+          span(data-filter='*', is-checked='is-checked') todas
           span(data-filter='.casos-reales') casos reales
           span(data-filter='.scrum') scrum
           span(data-filter='.desarrollo') desarrollo

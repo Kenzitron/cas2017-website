@@ -39,14 +39,6 @@
             }
         });  
     
-        // filter items on button click
-        $('.filter-button-group').on( 'click', 'button', function(event) {           
-            var filterValue = $(this).attr('data-filter');
-            $('.filter-button-group button').attr('is-checked', '');
-            $(event.currentTarget).attr('is-checked','is-checked');
-            $grid.isotope({ filter: filterValue });
-        });
-
         // sort items on button click
         $('.sort-by-button-group').on( 'click', 'button', function(event) {            
             var sortByValue = $(this).attr('data-sort-by');
@@ -56,12 +48,34 @@
             $grid.isotope({ sortBy: sortByValue, sortAscending: sortAscending });
         });
 
+        //Filters are combined. You need to save them
+        var filters = {};
+         // filter items on button click
+        $('.filter-button-group').on( 'click', 'button', function(event) {           
+            var filterValue = $(this).attr('data-filter');            
+            $('.filter-button-group button').attr('is-checked', '');
+            $(event.currentTarget).attr('is-checked','is-checked');
+            filters['type'] = filterValue;
+            combineFilters(filters, $grid);
+            //$grid.isotope({ filter: filterValue });
+        });
+
+         // tags items on span click
+        $('.filter-span-group').on( 'click', 'span', function(event) {           
+            var filterValue = $(this).attr('data-filter');
+            $('.filter-span-group span').attr('is-checked', '');
+            $(event.currentTarget).attr('is-checked','is-checked');
+            filters['tag'] = filterValue;
+            combineFilters(filters, $grid);
+            //$grid.isotope({ filter: filterValue });
+        });
+
+        $(undefined).on('click', )
         /* Descriptions */
         $(".speaker .read-more").on('click',showLargeDescription);
 
 
         /* Login */
-
         $('#popup.login-container').click(function(event){
             event.stopPropagation()
         });
@@ -120,6 +134,21 @@
             data: {score: score}
         });
     }
+
+    function combineFilters(filters, isotopeObject){
+        var filterValue = concatValues( filters );
+        isotopeObject.isotope({ filter: filterValue });
+    }
+
+    // flatten object by concatting values
+    function concatValues( obj ) {
+        var value = '';
+        for ( var prop in obj ) {
+            value += obj[ prop ];
+        }
+        return value;
+    }
+
 
     function calculateDeltaRemainingvotes(event){
         var oldScore = $(event.target).parent().children(".selected").attr("data-score");
