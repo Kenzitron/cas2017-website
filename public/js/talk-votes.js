@@ -123,6 +123,28 @@
             }
             return false;
         });
+
+        /* Mobile filters */
+        $('#filter-mobile-toogler').on('click', function(event){
+            openMobileFilters();
+        });
+
+
+        function openMobileFilters(){
+            $('#filters-desktop-container').slideDown();
+            $('#filter-mobile-toogler').addClass('opened');
+            $('#filter-mobile-toogler').on('click', closeMobileFilters);
+            $('#filter-mobile-toogler').off('click', openMobileFilters);
+        }
+
+        function closeMobileFilters(){
+            $('#filters-desktop-container').slideUp(function(){
+                $('#filter-mobile-toogler').removeClass('opened');
+            });            
+            $('#filter-mobile-toogler').on('click', openMobileFilters);
+            $('#filter-mobile-toogler').off('click', closeMobileFilters);
+        }
+        
     });
 
 
@@ -229,16 +251,13 @@
         }
         classString += ".12-ptos"
         return classString;
-    }
-
-    
+    }    
 
     
 
     function showLargeDescription(event){
         var readMoreLink = $(event.currentTarget);
         var largeDescription = $(event.currentTarget).parent().children("#large-description");
-        //shortDescription.slideUp();
         readMoreLink.text("menos info");
         largeDescription.slideDown(function(){
             $grid.isotope();
@@ -258,10 +277,19 @@
             readMoreLink.on('click', showLargeDescription);           
         });
     }
+
+
 })();
 
 
+
 function showLogin(){
+    // aquí le pasamos la clase o id de nuestro div a centrar (en este caso "caja")
+    $('#popup').css({
+        position:'absolute',
+        left: ($(window).width() - $('#popup').outerWidth())/2,
+        top: ($(window).height() - $('#popup').outerHeight())/2 
+    });
     $("#popup-background").css("display", "block");
     return false;
 }

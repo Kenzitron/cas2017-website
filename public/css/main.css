@@ -247,24 +247,25 @@ a:hover {
     }
  }
 
+/* FILTERS */
 #filters-desktop-container{
+    padding: 0;   
+    display: none;
+    border-bottom: 1px solid #5788FF; 
+    border-right: 1px solid #5788FF; 
+    border-left: 1px solid #5788FF;
+}
+
+#filters-desktop-container div{
     background: white;
 }
+
 .filter-button-group, .sort-by-button-group, .filter-span-group{
     color: #5788FF;
     font-weight: bold;
-    padding: 10px;
-    border: 1px solid #5788FF;
+    padding: 10px;  
 }
 
-.filter-button-group{
-    border-right: none;
-}
-
-.filter-span-group{
-    border-top: none;
-    padding-top: 20px;
-}
 
 .filter-span-group span{
     display: inline-block; 
@@ -275,23 +276,15 @@ a:hover {
     cursor: pointer;
 }
 
-
-.filter-tags-container{
-    float: left;
-    width: calc(100% - 70px);
-    margin-left: 10px;
-}
-
-
 .filter-button-group button, .sort-by-button-group button{
-    padding: 5px 15px;
+    padding: 5px 8px;
     background: white;
     border: 1px solid #5788FF;
     color: #5788FF;
-    margin-left: 10px;
+    margin-left: 0;
+    margin-right: 8px;
     font-weight: bold;
 }
-
 
 .filter-button-group button[is-checked="is-checked"],
 .sort-by-button-group button[is-checked="is-checked"],
@@ -300,21 +293,134 @@ a:hover {
     color: white;  
 }
 
-.buttons-title{
-    text-align: right;
-    padding-top: 7px;
-    float: left;
+.filter-button-group .buttons-title, 
+.filter-span-group .buttons-title,
+.sort-by-button-group .buttons-title{
+    margin-bottom: 10px;
+    margin-top: 20px;
+} 
+
+#filter-mobile-toogler{
+    background: white;   
+    padding-left: 10px;
+    border-top: 1px solid #5788FF;
+    border-left: 1px solid #5788FF;
+    border-right: 1px solid #5788FF;
+    border-bottom: 1px solid #5788FF;
+    cursor: pointer;
 }
 
-.filter-button-group .buttons-title, 
-.filter-span-group .buttons-title{
-    width: 60px;
+#filter-mobile-toogler.opened{
+    border-bottom: none;
 }
+
+#filter-mobile-toogler .title{
+    float: left;
+    font-weight: bold;
+    padding-top: 15px;    
+}
+
+#filter-mobile-toogler .icon{
+    float:right;
+    font-size: 30px;
+    color: #414141;
+    padding-top: 5px;
+}
+
+@media (min-width: 767px) { 
+    #filters-desktop-container{
+        display: block;   
+        border-bottom: none; 
+        border-right: none; 
+        border-left: none;    
+    }
+    .filter-button-group, .sort-by-button-group, .filter-span-group{
+        border: 1px solid #5788FF;
+    }
+
+    .filter-button-group{
+        border-right: none;
+    }
+      
+
+    .filter-button-group{
+        border-right: none;
+    }
+
+    .filter-span-group{
+        border-top: none;
+        padding-top: 20px;
+    }
+
+
+    .filter-tags-container{
+        float: left;
+        width: calc(100% - 70px);
+        margin-left: 10px;
+    }
+
+    .filter-button-group button, .sort-by-button-group button{
+        padding: 5px 15px;
+        margin-left: 10px;
+        margin-right: 0px;
+    }
+    
+
+    .filter-button-group .buttons-title, 
+    .filter-span-group .buttons-title,
+    .sort-by-button-group .buttons-title,
+    .buttons-title{
+    
+        text-align: right;
+        padding-top: 7px;
+        float: left;
+        margin-top: 0;
+    }
+
+    .filter-button-group .buttons-title, 
+    .filter-span-group .buttons-title{
+        width: 60px;
+        margin-bottom: 0px;
+    } 
+
+    .sort-by-button-group .buttons-title{
+        margin-bottom: 0px;
+    } 
+    
+    
+}
+@media (max-width:900px) and (min-width:768px) {
+    .buttons-container{
+        float: left;
+        height: 80px;
+    }
+}
+
+@media (max-width:1200px) and (min-width:768px) {
+    .filter-button-group .buttons-title, 
+    .sort-by-button-group .buttons-title{
+        width: 30px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .buttons-container{
+        float: left;
+    }
+
+    .filter-button-group button, .sort-by-button-group button{
+        margin-left: 0;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+}
+
 
 .grid-item{
     padding: 10px;
 }
-.grid-item section{    
+.grid-item section{   
+    width: 100%; 
     color: #1D1D1B;
     background: #fff;
     border: 2px solid ;
@@ -322,6 +428,8 @@ a:hover {
     -moz-border-radius: 18px 18px 18px 18px;
     -webkit-border-radius: 18px 18px 18px 18px;
     float: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 #talks-container{
@@ -537,6 +645,7 @@ input:-webkit-autofill {
 #large-description{
     float:left;
     display: none;
+    width: 100%;
 }
 
 

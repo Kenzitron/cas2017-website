@@ -20,18 +20,21 @@ block header
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
 
-  div.container.hidden-xs
-    div#filters-desktop-container.row
+  div.container
+    div#filter-mobile-toogler.col-xs-12(class='visible-xs')
+      div.title filtros
+      div.icon x
+    div#filters-desktop-container.col-xs-12
       div(data-filter-group='type', class='button-group filter-button-group col-sm-6')
         div.buttons-title  Ver:
-        div
+        div.buttons-container
           button(data-filter='*', is-checked='is-checked') todo
           button(data-filter='.Taller') talleres
           button(data-filter='.Charla') charlas
           button(data-filter='.voted-by-me') votadas por mi
       div.button-group.sort-by-button-group.col-sm-6
         div.buttons-title Ordenar por:
-        div
+        div.buttons-container
           button(data-sort-by='level') audiencia
           button(data-sort-by='time') tiempo
           button(data-sort-by='score') más votados     
