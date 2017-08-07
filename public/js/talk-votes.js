@@ -333,7 +333,8 @@ function showLogin(){
         position:'absolute',
         left: ($(window).width() - $('#popup').outerWidth())/2,
         top: ($(window).height() - $('#popup').outerHeight())/2 
-    });
+    });    
     $("#popup-background").css("display", "block");
+    $("#username").focus();
     return false;
 }
