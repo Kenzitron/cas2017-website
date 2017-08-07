@@ -650,7 +650,6 @@ input:-webkit-autofill {
     width: 100%;
 }
 
-
 button.vote{
     display: inline-block;
     border: none;
@@ -763,6 +762,17 @@ input[type="button"]::-moz-focus-inner {
     font-size: 15px;
 }
 
+/* Rools notifications */ 
+#mySliderDesktop{
+    display: none;
+}
+
+@media (min-width: 1024px){
+    #mySliderDesktop{
+        display: block;
+    }
+}
+
 /*Media queries*/
 
 @media (min-width: 768px) {
@@ -780,8 +790,10 @@ input[type="button"]::-moz-focus-inner {
     #header-desktop #actions {
         text-align: right;
     }
-
 }
+
+
+
 
 @media (max-width: 768px) {
 
