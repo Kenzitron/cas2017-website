@@ -199,15 +199,13 @@ a:hover {
     text-align: center;
 }
 
+
 /* Talks */
-
-
-
 
 #votes-counter{
     position: fixed;
     border-radius: 100px;
-    z-index: 2000;
+    z-index: 5;
     color: white;
     font-weight: bold;
     padding: 0;
@@ -385,18 +383,18 @@ a:hover {
 
     .sort-by-button-group .buttons-title{
         margin-bottom: 0px;
-    } 
+    }    
     
     
-}
-@media (max-width:900px) and (min-width:768px) {
-    .buttons-container{
-        float: left;
-        height: 80px;
-    }
 }
 
 @media (max-width:1200px) and (min-width:768px) {
+    .filter-button-group button, .sort-by-button-group button{
+        padding: 5px 8px;       
+        margin-right: 5px;
+        font-weight: bold;
+    }
+ 
     .filter-button-group .buttons-title, 
     .sort-by-button-group .buttons-title{
         width: 30px;
@@ -412,6 +410,10 @@ a:hover {
         margin-left: 0;
         margin-right: 10px;
         margin-top: 10px;
+    }
+
+    .filter-span-group .buttons-title{
+        width: auto;
     }
 }
 
@@ -487,7 +489,7 @@ a:hover {
 
 #popup-background{
     display: none;
-    z-index: 1000;
+    z-index: 6;
     position: fixed;
     width:100%;
     height: 100%;
@@ -716,7 +718,25 @@ input[type="button"]::-moz-focus-inner {
     font-weight: bold;
 }
 
+#mySliderDesktop{
+    background: white;
+    position: fixed;
+    z-index: 30;
+    width: 600px;
+    left: -600px;
+    top: 50%;
+    margin-top: -400px;
+}
 
+.hidden-button{
+    position: absolute;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    padding: 6px 10px;
+    font-size: 24px;
+    background: white;
+}
 
 
 

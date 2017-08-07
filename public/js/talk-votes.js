@@ -70,7 +70,6 @@
             //$grid.isotope({ filter: filterValue });
         });
 
-        $(undefined).on('click', )
         /* Descriptions */
         $(".speaker .read-more").on('click',showLargeDescription);
 
@@ -84,7 +83,7 @@
             $("#popup-background").css("display", "none");
         })
         
-          // aquí le pasamos la clase o id de nuestro div a centrar (en este caso "caja")
+        // aquí le pasamos la clase o id de nuestro div a centrar (en este caso "caja")
         $('#popup').css({
             position:'absolute',
             left: ($(window).width() - $('#popup').outerWidth())/2,
@@ -95,7 +94,7 @@
             $( "#login" ).submit();
         })
        
-        /* Login */        
+           
         $('#login').submit(function(e){
             e.preventDefault();
             let validForm = true;
@@ -145,10 +144,58 @@
             $('#filter-mobile-toogler').off('click', closeMobileFilters);
         }
         
+        /* Instructions modal for ipad less */
+        if ($('#myModal') && $(window).width() <= 1024){
+             $('#myModal').modal('show');
+        }  
+
+        /* Desktop slider */   
+        if(!localStorage.getItem("no-more")){
+            setTimeout(slideInMySlider, 1500);   
+        }else{
+             $('#mySliderDesktop').on('click', slideInMySlider);  
+        }  
+        
+        
+        /* no more info events */
+        $('#no-more-slider').on('click', function(){
+            slideInMySlider();
+            setNoMoreInstructions();
+        });
     });
 
-
+    
     /* Helper functions */
+
+    function slideOutMySlider(){
+        if( $('#mySliderDesktop')){
+            $('#mySliderDesktop').animate({
+                'left': -600,
+            });
+            $('.hidden-button span').css( { transition: "transform 0.5s",
+                  transform:  "rotate(0deg)" } );
+            $('#mySliderDesktop').off('click', slideOutMySlider);
+            $('#mySliderDesktop').on('click', slideInMySlider);
+        }       
+    }
+
+    function slideInMySlider(){
+        if( $('#mySliderDesktop')){
+            $('#mySliderDesktop').animate({
+                left: 0
+            });
+            $('.hidden-button span').css( { transition: "transform 0.5s",
+                transform:  "rotate(180deg)" } );
+            $('#mySliderDesktop').on('click', slideOutMySlider);
+            $('#mySliderDesktop').off('click', slideInMySlider);
+        }
+    }
+
+    function setNoMoreInstructions(){
+        localStorage.setItem("no-more", true);
+    }
+
+    
     function vote(talkId, score){
         $.ajax({
             type: "POST",
