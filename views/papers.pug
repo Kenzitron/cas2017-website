@@ -3,9 +3,9 @@ extends layout
 block header
   if user
     div#votes-counter
-      span.hidden-xs Te quedan 
+      span.visible-lg Te quedan 
       span#my-remaining-votes #{remaining_votes}
-      span.hidden-xs  puntos
+      span.visible-lg  puntos
     
     //- Modal with instructions for ipad less
     div#myModal.modal.fade(role='dialog')
@@ -129,7 +129,8 @@ block content
             hr       
             div.info Nivel: 
               span.level #{val.public}
-            div.info#format Formato: #{val.duration}          
+            div.info#format Formato: #{val.duration}  
+            div.language Idioma: #{val.language}          
             div.info 
               div.info-title Tags: 
               div.tags-container   
@@ -137,7 +138,7 @@ block content
                   span.talk-tags #{tag}
                     
             p#short-description #{val.short_description}
-            p#large-description #[strong Descripción ampliada]: #{val.description}
+            p#large-description #[strong Descripción ampliada]: #{val.description}            
             //- if val.extra_information
             //- p #[strong Información adicional]: #{val.extra_information}
 

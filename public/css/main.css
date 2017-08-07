@@ -229,7 +229,7 @@ a:hover {
 }
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) { 
+@media (min-width: 1200px) { 
     #votes-counter{        
         top: 40%;
         left: 15px;
@@ -242,6 +242,10 @@ a:hover {
         right: inherit;
         bottom: inherit;
         font-size: 14px;
+    }
+
+    #votes-counter span{
+        display: inline !important;
     }
  }
 
