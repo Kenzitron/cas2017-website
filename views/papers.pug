@@ -10,10 +10,9 @@ block header
     //- Modal with instructions for ipad less
     div#myModal.modal.fade(role='dialog')
       div.modal-dialog
-        div.modal-content
-          div.modal-content
             div.modal-header
               button(type='button',class='close',data-dismiss='modal') &times;
+              img(src='images/estrella.png')
               h4.modal-title ¡Importante! Lee esto antes de votar :)
             div.modal-body
               p Hola #{user.name}. Es importante que tengas en cuentas algunos aspectos
@@ -37,7 +36,11 @@ block header
       div.slider-header
         div.hidden-button
           span.glyphicon.glyphicon-chevron-right(aria-hidden = 'true')
-        h4.modal-title ¡Importante! Lee esto antes de votar :)
+        img(src='images/estrella.png')
+        h4.modal-title          
+          | ¡Importante! 
+          br
+          | Lee esto antes de votar :)                    
       div.slider-body
         p Hola #{user.name}. Es importante que tengas en cuentas algunos aspectos
           | a la hora de votar las charlas:
@@ -51,8 +54,6 @@ block header
           li Si tienes alguna duda o problema escríbenos a conferencia@agile-spain.org
           li El resultado de las votaciones nos servirá para confeccionar la agenda de la CAS2017, pero no es vinculante.
           li Por último… ¡ánimo! Es mucha responsabilidad pero... la CAS2017 la creamos entre todos :)
-      div.slider-footer
-        a#no-more-slider entendido, cerrar.
   section#main-content
     div.container
       div.row

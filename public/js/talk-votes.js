@@ -150,11 +150,8 @@
         }  
 
         /* Desktop slider */   
-        if(!localStorage.getItem("no-more")){
-            setTimeout(slideInMySlider, 1500);   
-        }else{
-             $('#mySliderDesktop').on('click', slideInMySlider);  
-        }  
+       setTimeout(slideInMySlider, 1500);   
+      
         
         
         /* no more info events */
@@ -170,7 +167,7 @@
     function slideOutMySlider(){
         if( $('#mySliderDesktop')){
             $('#mySliderDesktop').animate({
-                'left': -600,
+                'left': -500,
             });
             $('.hidden-button span').css( { transition: "transform 0.5s",
                   transform:  "rotate(0deg)" } );
