@@ -319,12 +319,12 @@ a:hover {
 #filter-mobile-toogler .title{
     float: left;
     font-weight: bold;
-    padding-top: 15px;    
+    padding-top: 10px;    
 }
 
 #filter-mobile-toogler .icon{
     float:right;
-    font-size: 30px;
+    font-size: 20px;
     color: #414141;
     padding-top: 5px;
 }
@@ -729,8 +729,7 @@ input[type="button"]::-moz-focus-inner {
     z-index: 30;
     width: 500px;
     left: -500px;
-    top: 50%;
-    margin-top: -400px;
+    top: 20px;
     padding: 20px 20px 20px 40px;
 }
 

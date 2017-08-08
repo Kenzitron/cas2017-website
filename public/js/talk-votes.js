@@ -132,16 +132,21 @@
         function openMobileFilters(){
             $('#filters-desktop-container').slideDown();
             $('#filter-mobile-toogler').addClass('opened');
-            $('#filter-mobile-toogler').on('click', closeMobileFilters);
             $('#filter-mobile-toogler').off('click', openMobileFilters);
+            $('#filter-mobile-toogler').on('click', closeMobileFilters);
+            $('#filter-mobile-toogler .icon span').css( { transition: "transform 0.5s",
+                  transform:  "rotate(90deg)" } );
+            
         }
 
         function closeMobileFilters(){
             $('#filters-desktop-container').slideUp(function(){
                 $('#filter-mobile-toogler').removeClass('opened');
-            });            
+            });     
+            $('#filter-mobile-toogler').off('click', closeMobileFilters);       
             $('#filter-mobile-toogler').on('click', openMobileFilters);
-            $('#filter-mobile-toogler').off('click', closeMobileFilters);
+            $('#filter-mobile-toogler .icon span').css( { transition: "transform 0.5s",
+                  transform:  "rotate(0deg)" } );           
         }
         
         /* Instructions modal for ipad less */

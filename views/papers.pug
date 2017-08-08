@@ -20,7 +20,7 @@ block header
               ul
                 li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
                 li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
-                li Para que no haya favoritismos, el orden en el que te mostramos las charlas es aleatorio y único para ti. Los demás usuarios, tendrán otro orden aleatorio y único para ellos.
+                li Para que no haya favoritismos, el orden en el que te mostramos las charlas es el resultado de aleatorizar todas las charlas una vez estaban todas incluidas.
                 li Podrás modificar tus votaciones siempre que quieras hasta el día 31 de Agosto a las 12 de la noche.
                 li Hay muchas charlas, así que te hemos proporcionado filtros por temática, tipo de charla y diferentes formas de ordenarlas.
                 li No hay búsqueda habilitada. Pero al estar todas las charlas en la misma pantalla, puedes usar el buscador de tu navegador.
@@ -47,7 +47,7 @@ block header
         ul
           li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
           li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
-          li Para que no haya favoritismos, el orden en el que te mostramos las charlas es aleatorio y único para ti. Los demás usuarios, tendrán otro orden aleatorio y único para ellos.
+          li Para que no haya favoritismos, el orden en el que te mostramos las charlas es el resultado de aleatorizar todas las charlas una vez estaban todas incluidas.
           li Podrás modificar tus votaciones siempre que quieras hasta el día 31 de Agosto a las 12 de la noche.
           li Hay muchas charlas, así que te hemos proporcionado filtros por temática, tipo de charla y diferentes formas de ordenarlas.
           li No hay búsqueda habilitada. Pero al estar todas las charlas en la misma pantalla, puedes usar el buscador de tu navegador.
@@ -71,7 +71,8 @@ block content
   div.container
     div#filter-mobile-toogler.col-xs-12(class='visible-xs')
       div.title filtros
-      div.icon x
+      div.icon 
+        span.glyphicon.glyphicon-chevron-right(aria-hidden = 'true')
     div#filters-desktop-container.col-xs-12
       div(data-filter-group='type', class='button-group filter-button-group col-sm-6')
         div.buttons-title  Ver:
@@ -91,14 +92,14 @@ block content
         div.filter-tags-container
           span(data-filter='*', is-checked='is-checked') todas
           span(data-filter='.casos-reales') casos reales
-          span(data-filter='.scrum') scrum
+          span(data-filter='.scrum--eventos--artefactos--roles-') scrum
           span(data-filter='.desarrollo') desarrollo
           span(data-filter='.agile-a-gran-escala') agile a gran escala
           span(data-filter='.kanban') kanban
           span(data-filter='.transformación-digital') transformación digital
-          span(data-filter='.agile por y para negocio') agile por y para negocio
+          span(data-filter='.agile-por-y-para-negocio') agile por y para negocio
           span(data-filter='.felicidad') felicidad
-          span(data-filter='.personas-y-habilidad') personas y habilidad
+          span(data-filter='.personas-y-habilidades') personas y habilidad
           span(data-filter='.cultura-y-comunidad') cultura y comunidad
           span(data-filter='.lean') lean
           span(data-filter='.organización-y-empresas') organización y empresas
@@ -110,7 +111,7 @@ block content
     div.grid.row
       each val, index in papers
         section(class = val.duration + ' speaker col-sm-12',
-                class = val.tags.toLowerCase().replace(/\s/g, '-').split(';'),
+                class = val.tags.toLowerCase().replace(/\s|\(|\,|\)/g, '-').split(';'),
                 class="grid-item col-sm-6 col-xs-12",
                 class = Number.isInteger(val.score) && val.score > 0 ? 'voted-by-me' : '',
                 total-score = val.total | 0)
@@ -131,7 +132,7 @@ block content
             div.info Nivel: 
               span.level #{val.public}
             div.info#format Formato: #{val.duration}  
-            div.language Idioma: #{val.language}          
+            div.info Idioma: #{ val.language === 'es' ? 'español' : 'inglés' }          
             div.info 
               div.info-title Tags: 
               div.tags-container   
