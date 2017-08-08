@@ -97,7 +97,7 @@
            
         $('#login').submit(function(e){
             e.preventDefault();
-            let validForm = true;
+            var validForm = true;
             $.each($(this).serializeArray(), function(i, field) {
                 if (field.value === undefined || field.value === ''){
                     $('#popup.login-container').addClass('error');
