@@ -5,7 +5,7 @@ block header
     div#votes-counter
       span.visible-lg Te quedan 
       span#my-remaining-votes #{remaining_votes}
-      span.visible-lg  puntos
+      span.visible-lg  puntos    
     
     //- Modal with instructions for ipad less
     div#myModal.modal.fade(role='dialog')
@@ -59,6 +59,13 @@ block header
       div.row
         div.col-xs-12.col-sm-8.col-sm-offset-2
           h1(class="main-title", data-translatable) CONFERENCIA AGILE SPAIN
+          img(src="images/votar.png")
+        div(class="col-xs-12 col-sm-8 col-sm-offset-2 container-subtitle")
+          p.main-subtitle ¡A votar!
+          p.main-subtitle.main-smaller-subtitle Para poder votar, tendrás que estar identificado.      
+          p.main-subtitle.main-smaller-subtitle Solo las personas con entrada pueden votar.   
+          p.main-subtitle.main-smaller-subtitle Una vez identificado, te mostraremos la ayuda y las normas.
+          p.main-subtitle.main-smaller-subtitle Si tienes cualquier problema, escríbenos a conferencia@agile-spain.org :)  
 
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
