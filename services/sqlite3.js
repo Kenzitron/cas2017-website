@@ -26,7 +26,8 @@ module.exports.createTables = function() {
         'public TEXT, ' +
         'duration TEXT, ' +
         'date TEXT, ' +
-        'language TEXT)');
+        'language TEXT, ' +
+        'random INTEGER)');
     console.log('La tabla papers ha sido correctamente creada');
 
 
@@ -65,10 +66,10 @@ module.exports.updateVote = function(userId, paperId, score){
 
 module.exports.insertPaper = function(hash, name, about, picture, email, twitter, linkedin, web, title,
                                       short_description, description, extra_information, tags, audience, duration,
-                                      date, lang) {
-    const stmt = db.prepare('INSERT INTO papers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+                                      date, lang, order) {
+    const stmt = db.prepare('INSERT INTO papers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
     stmt.run(null, hash, name, about, picture, email, twitter, linkedin,
-        web, title, short_description, description, extra_information, tags, audience, duration, date, lang);
+        web, title, short_description, description, extra_information, tags, audience, duration, date, lang, order);
 
     stmt.finalize();
 };
@@ -112,7 +113,7 @@ module.exports.findById = function(id, fn) {
 module.exports.getPapers = function() {
     return new Promise((resolve, reject) => {
         try{
-            db.all('SELECT * FROM papers', (err, rows) => {
+            db.all('SELECT * FROM papers ORDER BY random DESC', (err, rows) => {
                 resolve(rows);
             });
         }catch (err){

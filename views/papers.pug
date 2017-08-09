@@ -58,12 +58,7 @@ block header
     div.container
       div.row
         div.col-xs-12.col-sm-8.col-sm-offset-2
-          h1(class="main-title", data-translatable) CONFERENCIA AGILE SPAIN // AGILE SPAIN CONFERENCE
-          img(src='images/banner-home.png')
-        div.col-xs-12.col-sm-8.col-sm-offset-2.container-subtitle
-          p.main-subtitle 9 y 10 de Noviembre. Fibes, Sevilla
-          p.main-subtitle.main-smaller-subtitle Growing Up! From Zero to Hero! 
-          p.main-subtitle.main-smaller-subtitle(data-translatable) Para todos los profesionales del agilismo // For all the agile professionals
+          h1(class="main-title", data-translatable) CONFERENCIA AGILE SPAIN
 
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
@@ -125,7 +120,7 @@ block content
                 a(href='https://twitter.com/' + val.twitter, target="blank") twitter
               if (val.linkedin)
                 a(href=val.linkedin, target="blank") linkedIn
-              if (val.web != 'http://')
+              if (val.web !== 'http://')
                 a(href=val.web, target="blank") web
 
             hr       
@@ -155,7 +150,7 @@ block content
               if user           
                 div.votes-title Vota: 
                 div.votes-container(current-vote=val.score)
-                  button.vote(class = typeof val.score !== 'number' || val.score === 0 ? "selected 0-ptos" : "0 ptos", data-score = 0, data-talk = val.id )  0 ptos
+                  button.vote(class = (typeof val.score !== 'number') || val.score === 0 ? "selected 0-ptos" : "0 ptos", data-score = 0, data-talk = val.id )  0 ptos
                   -for(var i=1; i <= 10; i++){
                     - var myClass =  val.score === i ? "selected" : "";
                     - myClass += remaining_votes < i && i > val.score ?  " cannot" : "";
@@ -163,7 +158,7 @@ block content
                       data-score = i, 
                       data-talk = val.id,
                       disabled = remaining_votes < i && i > val.score + remaining_votes)  #{i} ptos
-                  -}                     
+                  -}
               else
                 div.want-vote-message(onClick='showLogin()')
                   a.login ¿quieres votar? ¡identífícate!      
@@ -172,5 +167,3 @@ block content
               if user
                 div.info Puntos totales: 
                   span.total-score  #{val.total | 0} pts
-            
-          
