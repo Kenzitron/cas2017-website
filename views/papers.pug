@@ -2,51 +2,175 @@ extends layout
 
 block header
   if user
-    div
-      | TE QUEDAN: #{remaining_votes} votos por repartir
+    div#votes-counter
+      span.visible-lg Te quedan 
+      span#my-remaining-votes #{remaining_votes}
+      span.visible-lg  puntos    
+    
+    //- Modal with instructions for ipad less
+    div#myModal.modal.fade(role='dialog')
+      div.modal-dialog
+            div.modal-header
+              button(type='button',class='close',data-dismiss='modal') &times;
+              img(src='images/estrella.png')
+              h4.modal-title ¡Importante! Lee esto antes de votar :)
+            div.modal-body
+              p Hola #{user.name}. Es importante que tengas en cuentas algunos aspectos
+                | a la hora de votar las charlas:
+              ul
+                li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
+                li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
+                li Para que no haya favoritismos, el orden en el que te mostramos las charlas es el resultado de aleatorizar todas las charlas una vez estaban todas incluidas.
+                li Podrás modificar tus votaciones siempre que quieras hasta el día 31 de Agosto a las 12 de la noche.
+                li Hay muchas charlas, así que te hemos proporcionado filtros por temática, tipo de charla y diferentes formas de ordenarlas.
+                li No hay búsqueda habilitada. Pero al estar todas las charlas en la misma pantalla, puedes usar el buscador de tu navegador.
+                li Si tienes alguna duda o problema escríbenos a conferencia@agile-spain.org
+                li El resultado de las votaciones nos servirá para confeccionar la agenda de la CAS2017, pero no es vinculante.
+                li Por último… ¡ánimo! Es mucha responsabilidad pero... la CAS2017 la creamos entre todos :)
+            div.modal-footer
+              a#no-more-slider(data-dismiss='modal') entendido, cerrar.
+
+    
+    //- Instructions for desktop
+    div#mySliderDesktop      
+      div.slider-header
+        div.hidden-button
+          span.glyphicon.glyphicon-chevron-right(aria-hidden = 'true')
+        img(src='images/estrella.png')
+        h4.modal-title          
+          | ¡Importante! 
+          br
+          | Lee esto antes de votar :)                    
+      div.slider-body
+        p Hola #{user.name}. Es importante que tengas en cuentas algunos aspectos
+          | a la hora de votar las charlas:
+        ul
+          li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
+          li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
+          li Para que no haya favoritismos, el orden en el que te mostramos las charlas es el resultado de aleatorizar todas las charlas una vez estaban todas incluidas.
+          li Podrás modificar tus votaciones siempre que quieras hasta el día 31 de Agosto a las 12 de la noche.
+          li Hay muchas charlas, así que te hemos proporcionado filtros por temática, tipo de charla y diferentes formas de ordenarlas.
+          li No hay búsqueda habilitada. Pero al estar todas las charlas en la misma pantalla, puedes usar el buscador de tu navegador.
+          li Si tienes alguna duda o problema escríbenos a conferencia@agile-spain.org
+          li El resultado de las votaciones nos servirá para confeccionar la agenda de la CAS2017, pero no es vinculante.
+          li Por último… ¡ánimo! Es mucha responsabilidad pero... la CAS2017 la creamos entre todos :)
+  section#main-content
+    div.container
+      div.row
+        div.col-xs-12.col-sm-8.col-sm-offset-2
+          h1(class="main-title", data-translatable) CONFERENCIA AGILE SPAIN
+          img(src="images/votar.png")
+        div(class="col-xs-12 col-sm-8 col-sm-offset-2 container-subtitle")
+          p.main-subtitle ¡A votar!
+          p.main-subtitle.main-smaller-subtitle Para poder votar, tendrás que estar identificado.      
+          p.main-subtitle.main-smaller-subtitle Solo las personas con entrada pueden votar.   
+          p.main-subtitle.main-smaller-subtitle Una vez identificado, te mostraremos la ayuda y las normas.
+          p.main-subtitle.main-smaller-subtitle Si tienes cualquier problema, escríbenos a conferencia@agile-spain.org :)  
 
 block content
-  div
-    each val, index in papers
-      section.speaker
-        h2 #[strong Charla/Taller]: #{val.title}
+  input#remaining_votes(type="hidden", value=remaining_votes)
 
-        //- Aquí se muestra la información de los votos recibidos.
-        if (val.total)
-          h3 PUNTUACION RECIBIDA: #{val.total } VOTOS
-        else
-          h3 PUNTUACION RECIBIDA: 0 VOTOS :(
+  div.container
+    div#filter-mobile-toogler.col-xs-12(class='visible-xs')
+      div.title filtros
+      div.icon 
+        span.glyphicon.glyphicon-chevron-right(aria-hidden = 'true')
+    div#filters-desktop-container.col-xs-12
+      div(data-filter-group='type', class='button-group filter-button-group col-sm-6')
+        div.buttons-title  Ver:
+        div.buttons-container
+          button(data-filter='*', is-checked='is-checked') todo
+          button(data-filter='.Taller') talleres
+          button(data-filter='.Charla') charlas
+          button(data-filter='.voted-by-me') votadas por mi
+      div.button-group.sort-by-button-group.col-sm-6
+        div.buttons-title Ordenar por:
+        div.buttons-container
+          button(data-sort-by='level') audiencia
+          button(data-sort-by='time') tiempo
+          button(data-sort-by='score') más votados     
+      div(data-filter-group='tags', class='button-group filter-span-group col-sm-12')
+        div.buttons-title Tags:
+        div.filter-tags-container
+          span(data-filter='*', is-checked='is-checked') todas
+          span(data-filter='.casos-reales') casos reales
+          span(data-filter='.scrum--eventos--artefactos--roles-') scrum
+          span(data-filter='.desarrollo') desarrollo
+          span(data-filter='.agile-a-gran-escala') agile a gran escala
+          span(data-filter='.kanban') kanban
+          span(data-filter='.transformación-digital') transformación digital
+          span(data-filter='.agile-por-y-para-negocio') agile por y para negocio
+          span(data-filter='.felicidad') felicidad
+          span(data-filter='.personas-y-habilidades') personas y habilidad
+          span(data-filter='.cultura-y-comunidad') cultura y comunidad
+          span(data-filter='.lean') lean
+          span(data-filter='.organización-y-empresas') organización y empresas
+          span(data-filter='.frameworks-agile') frameworks agile
 
-        p #[strong Autor]: #{val.name}
-        p #[strong Presentación]: #{val.about}
-          |
-          img(src='/images/avatars/' + val.picture, width='100')
-        p #[strong Redes Sociales]:
-          |
-          if (val.twitter)
-            a(href='https://twitter.com/' + val.twitter, target="blank") Twitter
-            | ,
-          if (val.linkedin)
-            a(href=val.linkedin, target="blank") LinkedIn
-            | ,
-          if (val.web != 'http://')
-            a(href=val.web, target="blank") Web Personal
-        p #[strong Descripción corta]: #{val.short_description}
-        p #[strong Descripción ampliada]: #{val.description}
-        if val.extra_information
-          p #[strong Información adicional]: #{val.extra_information}
-        p #[strong Nivel]: #{val.public}
-        p #[strong Formato]: #{val.duration}
-        p #[strong Tags]: #{val.tags}
+    
 
-        //- Si el usuario está registrado mostramos la información de su voto al speaker y el formulario para votar
-        if user
-          p RATE SYSTEM
-          p YO VOTÉ POR ESTA CHARLA/TALLER
-            if (val.score)
-              |  #{val.score}
-            else
-              |  0
-            |  PUNTOS
-        else
-          a(href="/login") LOGEATE!!
+  div#talks-container.container
+    div.grid.row
+      each val, index in papers
+        section(class = val.duration + ' speaker col-sm-12',
+                class = val.tags.toLowerCase().replace(/\s|\(|\,|\)/g, '-').split(';'),
+                class="grid-item col-sm-6 col-xs-12",
+                class = Number.isInteger(val.score) && val.score > 0 ? 'voted-by-me' : '',
+                total-score = val.total | 0)
+          section(class = ' speaker col-sm-12')
+            div#speaker-title #{val.title}
+            img(src='/images/avatars/' + val.picture, width='100')
+            div.speaker-details
+              div#speaker-name #{val.name}
+              p #{val.about}
+              if (val.twitter)
+                a(href='https://twitter.com/' + val.twitter, target="blank") twitter
+              if (val.linkedin)
+                a(href=val.linkedin, target="blank") linkedIn
+              if (val.web !== 'http://')
+                a(href=val.web, target="blank") web
+
+            hr       
+            div.info Nivel: 
+              span.level #{val.public}
+            div.info#format Formato: #{val.duration}  
+            div.info Idioma: #{ val.language === 'es' ? 'español' : 'inglés' }          
+            div.info 
+              div.info-title Tags: 
+              div.tags-container   
+                each tag, i in val.tags.toLowerCase().split(";")
+                  span.talk-tags #{tag}
+                    
+            p#short-description #{val.short_description}
+            p#large-description #[strong Descripción ampliada]: #{val.description}            
+            //- if val.extra_information
+            //- p #[strong Información adicional]: #{val.extra_information}
+
+            if val.description.length !== 0
+              a.read-more más info  
+            hr       
+            
+            //- Si el usuario está registrado mostramos la información de su voto al speaker y el formulario para votar
+            //- user.num_votes
+          
+            div
+              if user           
+                div.votes-title Vota: 
+                div.votes-container(current-vote=val.score)
+                  button.vote(class = (typeof val.score !== 'number') || val.score === 0 ? "selected 0-ptos" : "0 ptos", data-score = 0, data-talk = val.id )  0 ptos
+                  -for(var i=1; i <= 10; i++){
+                    - var myClass =  val.score === i ? "selected" : "";
+                    - myClass += remaining_votes < i && i > val.score ?  " cannot" : "";
+                    button.vote(class =  myClass + " " + i + "-ptos" , 
+                      data-score = i, 
+                      data-talk = val.id,
+                      disabled = remaining_votes < i && i > val.score + remaining_votes)  #{i} ptos
+                  -}
+              else
+                div.want-vote-message(onClick='showLogin()')
+                  a.login ¿quieres votar? ¡identífícate!      
+
+              //- Aquí se muestra la información de los votos recibidos.
+              if user
+                div.info Puntos totales: 
+                  span.total-score  #{val.total | 0} pts

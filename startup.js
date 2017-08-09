@@ -6,9 +6,16 @@ const parse = require('csv-parse');
 const sha1 = require('sha1');
 const sqlite = require('./services/sqlite3');
 
+let rn = require('random-number');
+let gen = rn.generator({
+    min:  1
+    , max:  10000000
+    , integer: true
+});
+
 sqlite.createTables();
 
-var content = fs.readFileSync('./bin/users.csv', 'utf8');
+let content = fs.readFileSync('./bin/users-final.csv', 'utf8');
 parse(content, {columns: null, delimiter: ';', trim: true}, function(err, rows) {
     for (let row of rows) {
         let votes = 10;
@@ -40,18 +47,11 @@ parse(content, {columns: null, delimiter: ',', trim: true}, function(err, rows) 
 
         sqlite.insertPaper(
             row[0], row[1], row[2], img, twitter, row[4], row[6], row[7], row[8],
-            row[9], row[10], row[11], tags.join(','), row[25], row[26], row[27]
+            row[9], row[10], row[11], tags.join(';'), row[25], row[26], row[27], 'es', gen()
         );
     }
     
 });
-
-sqlite.insertVote(2,1,5);
-sqlite.insertVote(1,1,5);
-sqlite.insertVote(1,3,2);
-sqlite.insertVote(3,2,4);
-sqlite.insertVote(2,3,1);
-sqlite.insertVote(4,4,2);
 
 
 

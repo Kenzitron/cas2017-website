@@ -25,7 +25,9 @@ module.exports.createTables = function() {
         'tags TEXT, ' +
         'public TEXT, ' +
         'duration TEXT, ' +
-        'date TEXT)');
+        'date TEXT, ' +
+        'language TEXT, ' +
+        'random INTEGER)');
     console.log('La tabla papers ha sido correctamente creada');
 
 
@@ -64,13 +66,14 @@ module.exports.updateVote = function(userId, paperId, score){
 
 module.exports.insertPaper = function(hash, name, about, picture, email, twitter, linkedin, web, title,
                                       short_description, description, extra_information, tags, audience, duration,
-                                      date) {
-    const stmt = db.prepare('INSERT INTO papers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+                                      date, lang, order) {
+    const stmt = db.prepare('INSERT INTO papers VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
     stmt.run(null, hash, name, about, picture, email, twitter, linkedin,
-        web, title, short_description, description, extra_information, tags, audience, duration, date);
+        web, title, short_description, description, extra_information, tags, audience, duration, date, lang, order);
 
     stmt.finalize();
 };
+
 module.exports.findByUsername = function(username, fn) {
     const stmt = db.prepare('SELECT * FROM users WHERE username = ?');
     stmt.bind(username);
@@ -83,10 +86,34 @@ module.exports.findByUsername = function(username, fn) {
     });
 };
 
+module.exports.findByUsernameAndPassword = function(username, password, fn) {
+    const stmt = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?');
+    stmt.bind(username, password);
+
+    stmt.get(function(err, row) {
+        if (err || !row)
+            return fn(null, null);
+
+        return fn(null, row);
+    });
+};
+
+module.exports.findById = function(id, fn) {
+    const stmt = db.prepare('SELECT * FROM users WHERE id = ?');
+    stmt.bind(id);
+
+    stmt.get(function(err, row) {
+        if (err || !row)
+            return fn(null, null);
+
+        return fn(null, row);
+    });
+};
+
 module.exports.getPapers = function() {
     return new Promise((resolve, reject) => {
         try{
-            db.all('SELECT * FROM papers', (err, rows) => {
+            db.all('SELECT * FROM papers ORDER BY random DESC', (err, rows) => {
                 resolve(rows);
             });
         }catch (err){

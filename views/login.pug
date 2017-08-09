@@ -1,13 +1,18 @@
-<form action="/login" method="post">
+<form action="/login" method="post" id="login">
 <div>
-<label>Username:</label>
-<input type="text" name="user"/>
+    <div class="icon-type email">
+        <img class="login-icon" src="images/email.png">
+        <img class="login-alert" src="images/alerta.png">
+    </div>
+    <input id="username" type="text" name="user" placeholder="Username"/>
 </div>
 <div>
-<label>Password:</label>
-<input type="password" name="pass"/>
-</div>
-<div>
-<input type="submit" value="Log In"/>
+    <div class="icon-type password">
+        <img class="login-icon" src="images/llave.png">
+        <img class="login-alert" src="images/alerta.png">
+    </div>
+    <input id="password" type="password" name="pass" placeholder="Password" />
+
+    <button id="submit" class="icon-type" data-toggle="popover" data-content="UPS!"></button>
 </div>
 </form>
