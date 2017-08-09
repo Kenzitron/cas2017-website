@@ -66,9 +66,10 @@ block header
           p.main-subtitle.main-smaller-subtitle Solo las personas con entrada pueden votar.   
           p.main-subtitle.main-smaller-subtitle Una vez identificado, te mostraremos la ayuda y las normas.
           p.main-subtitle.main-smaller-subtitle Si tienes cualquier problema, escríbenos a conferencia@agile-spain.org :)  
-          div.want-vote-message(onClick='showLogin()')
-            br
-            a.login ¿quieres votar? ¡identífícate!      
+          if !user
+            div.want-vote-message(onClick='showLogin()')
+              br
+              a.login ¿quieres votar? ¡identífícate!      
 
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
