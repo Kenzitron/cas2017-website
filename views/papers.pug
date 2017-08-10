@@ -20,7 +20,7 @@ block header
               ul
                 li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
                 li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
-                li Para que no haya favoritismos, el orden en el que te mostramos las charlas es el resultado de aleatorizar todas las charlas una vez estaban todas incluidas.
+                li Para que no haya favoritismos, el orden en el que te mostramos las charlas es el resultado de aleatorizar  las charlas una vez estaban todas incluidas.
                 li Podrás modificar tus votaciones siempre que quieras hasta el día 31 de Agosto a las 12 de la noche.
                 li Hay muchas charlas, así que te hemos proporcionado filtros por temática, tipo de charla y diferentes formas de ordenarlas.
                 li No hay búsqueda habilitada. Pero al estar todas las charlas en la misma pantalla, puedes usar el buscador de tu navegador.
@@ -66,6 +66,10 @@ block header
           p.main-subtitle.main-smaller-subtitle Solo las personas con entrada pueden votar.   
           p.main-subtitle.main-smaller-subtitle Una vez identificado, te mostraremos la ayuda y las normas.
           p.main-subtitle.main-smaller-subtitle Si tienes cualquier problema, escríbenos a conferencia@agile-spain.org :)  
+          if !user
+            div.want-vote-message(onClick='showLogin()')
+              br
+              a.login ¿quieres votar? ¡identífícate!      
 
 block content
   input#remaining_votes(type="hidden", value=remaining_votes)
@@ -92,7 +96,6 @@ block content
       div(data-filter-group='tags', class='button-group filter-span-group col-sm-12')
         div.buttons-title Tags:
         div.filter-tags-container
-          span(data-filter='*', is-checked='is-checked') todas
           span(data-filter='.casos-reales') casos reales
           span(data-filter='.scrum--eventos--artefactos--roles-') scrum
           span(data-filter='.desarrollo') desarrollo

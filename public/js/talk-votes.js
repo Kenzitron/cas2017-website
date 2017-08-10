@@ -49,7 +49,11 @@
         });
 
         //Filters are combined. You need to save them
-        var filters = {};
+        var filters = {
+            tag : '',
+            type: ''
+        };
+
          // filter items on button click
         $('.filter-button-group').on( 'click', 'button', function(event) {           
             var filterValue = $(this).attr('data-filter');            
@@ -63,12 +67,53 @@
          // tags items on span click
         $('.filter-span-group').on( 'click', 'span', function(event) {           
             var filterValue = $(this).attr('data-filter');
-            $('.filter-span-group span').attr('is-checked', '');
-            $(event.currentTarget).attr('is-checked','is-checked');
-            filters['tag'] = filterValue;
+            var $target = $( event.currentTarget );
+            if(filters['tag'].length > 0){
+                var filterTagArray = filters['tag'].split(',');
+            }else{
+                var filterTagArray = [];   
+            }
+            $target.toggleClass('is-checked');
+            var isChecked = $target.hasClass('is-checked');
+            if ( isChecked ) {
+                addFilter( filterTagArray, filterValue);
+            } else {
+                removeFilter( filterTagArray, filterValue);
+            }
+            console.log(filterTagArray);
+            filters['tag'] = filterTagArray.join(',');
             combineFilters(filters, $grid);
-            //$grid.isotope({ filter: filterValue });
-        });
+        });      
+        
+        function addFilter( filters, filter ) {
+            if ( filters.indexOf( filter ) == -1 ) {
+                filters.push( filter );
+            }
+        }
+
+        function removeFilter( filters, filter ) {
+            var index = filters.indexOf( filter);
+            if ( index != -1 ) {
+                filters.splice( index, 1 );
+            }
+        }
+
+
+        function combineFilters(filters, isotopeObject){
+            console.log(filters);
+            var filterValue = concatValues( filters );
+            isotopeObject.isotope({ filter: filterValue });
+        }
+
+        // flatten object by concatting values
+        function concatValues( obj ) {
+            var value = '';
+            for ( var prop in obj ) {
+                value += obj[ prop ];
+            }
+            return value;
+        }
+
 
         /* Descriptions */
         $(".speaker .read-more").on('click',showLargeDescription);
@@ -204,21 +249,7 @@
             url:  '/api/paper/' + talkId +'/vote',
             data: {score: score}
         });
-    }
-
-    function combineFilters(filters, isotopeObject){
-        var filterValue = concatValues( filters );
-        isotopeObject.isotope({ filter: filterValue });
-    }
-
-    // flatten object by concatting values
-    function concatValues( obj ) {
-        var value = '';
-        for ( var prop in obj ) {
-            value += obj[ prop ];
-        }
-        return value;
-    }
+    }  
 
 
     function calculateDeltaRemainingvotes(event){
