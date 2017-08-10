@@ -13,13 +13,14 @@ block header
             div.modal-header
               button(type='button',class='close',data-dismiss='modal') &times;
               img(src='images/estrella.png')
-              h4.modal-title ¡Importante! Lee esto antes de votar :)
+              h4.modal-title ¡Importante! Lee esto antes de votar 
             div.modal-body
               p Hola #{user.name}. Es importante que tengas en cuentas algunos aspectos
                 | a la hora de votar las charlas:
               ul
                 li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
                 li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
+                li Los votos se guardan automáticamente. No hace falta que busques un botón de guardar.
                 li Para que no haya favoritismos, el orden en el que te mostramos las charlas es el resultado de aleatorizar  las charlas una vez estaban todas incluidas.
                 li Podrás modificar tus votaciones siempre que quieras hasta el día 31 de Agosto a las 12 de la noche.
                 li Hay muchas charlas, así que te hemos proporcionado filtros por temática, tipo de charla y diferentes formas de ordenarlas.
@@ -47,6 +48,7 @@ block header
         ul
           li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
           li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
+          li Los votos se guardan automáticamente. No hace falta que busques un botón de guardar :)
           li Para que no haya favoritismos, el orden en el que te mostramos las charlas es el resultado de aleatorizar todas las charlas una vez estaban todas incluidas.
           li Podrás modificar tus votaciones siempre que quieras hasta el día 31 de Agosto a las 12 de la noche.
           li Hay muchas charlas, así que te hemos proporcionado filtros por temática, tipo de charla y diferentes formas de ordenarlas.
