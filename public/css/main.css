@@ -294,7 +294,7 @@ a:hover {
 
 .filter-button-group button[is-checked="is-checked"],
 .sort-by-button-group button[is-checked="is-checked"],
-.filter-span-group span[is-checked="is-checked"]{
+.filter-span-group span.is-checked{
     background: #5788FF;
     color: white;  
 }
