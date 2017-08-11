@@ -198,7 +198,7 @@
         }  
 
         /* Desktop slider */   
-       setTimeout(slideInMySlider, 1500);   
+       setTimeout(slideInMySlider, 1000);   
       
         
         
@@ -215,7 +215,7 @@
     function slideOutMySlider(){
         if( $('#mySliderDesktop')){
             $('#mySliderDesktop').animate({
-                'left': -500,
+                'left': -550,
             });
             $('.hidden-button span').css( { transition: "transform 0.5s",
                   transform:  "rotate(0deg)" } );
