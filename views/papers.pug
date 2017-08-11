@@ -15,8 +15,8 @@ block header
               img(src='images/estrella.png')
               h4.modal-title ¡Importante! Lee esto antes de votar 
             div.modal-body
-              p Hola #{user.name}. Es importante que tengas en cuentas algunos aspectos
-                | a la hora de votar las charlas:
+              p Hola #{user.name}. Es importante que tengas en cuenta algunos aspectos
+                |  a la hora de votar las charlas:
               ul
                 li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
                 li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
@@ -43,8 +43,8 @@ block header
           br
           | Lee esto antes de votar :)                    
       div.slider-body
-        p Hola #{user.name}. Es importante que tengas en cuentas algunos aspectos
-          | a la hora de votar las charlas:
+        p Hola #{user.name}. Es importante que tengas en cuenta algunos aspectos
+          |  a la hora de votar las charlas:
         ul
           li Tienes disponibles #{user.num_votes} puntos para distribuir como quieras en las charlas.
           li El número de puntos que te quedan se te mostrará en todo momento y se irá actualizando conforme votes.
@@ -94,7 +94,7 @@ block content
         div.buttons-container
           button(data-sort-by='level') audiencia
           button(data-sort-by='time') tiempo
-          button(data-sort-by='score') más votados     
+          //button(data-sort-by='score') más votados     
       div(data-filter-group='tags', class='button-group filter-span-group col-sm-12')
         div.buttons-title Tags:
         div.filter-tags-container
@@ -176,6 +176,6 @@ block content
                   a.login ¿quieres votar? ¡identífícate!      
 
               //- Aquí se muestra la información de los votos recibidos.
-              if user
-                div.info Puntos totales: 
-                  span.total-score  #{val.total | 0} pts
+              //- if user
+              //-   div.info Puntos totales: 
+              //-     span.total-score  #{val.total | 0} pts
