@@ -68,19 +68,18 @@
         $('.filter-span-group').on( 'click', 'span', function(event) {           
             var filterValue = $(this).attr('data-filter');
             var $target = $( event.currentTarget );
+            $target.toggleClass('is-checked');
+            var isChecked = $target.hasClass('is-checked');
             if(filters['tag'].length > 0){
                 var filterTagArray = filters['tag'].split(',');
             }else{
                 var filterTagArray = [];   
-            }
-            $target.toggleClass('is-checked');
-            var isChecked = $target.hasClass('is-checked');
+            }   
             if ( isChecked ) {
                 addFilter( filterTagArray, filterValue);
             } else {
                 removeFilter( filterTagArray, filterValue);
             }
-            console.log(filterTagArray);
             filters['tag'] = filterTagArray.join(',');
             combineFilters(filters, $grid);
         });      
@@ -100,7 +99,6 @@
 
 
         function combineFilters(filters, isotopeObject){
-            console.log(filters);
             var filterValue = concatValues( filters );
             isotopeObject.isotope({ filter: filterValue });
         }
@@ -200,7 +198,7 @@
         }  
 
         /* Desktop slider */   
-       setTimeout(slideInMySlider, 1500);   
+       setTimeout(slideInMySlider, 1000);   
       
         
         
@@ -217,7 +215,7 @@
     function slideOutMySlider(){
         if( $('#mySliderDesktop')){
             $('#mySliderDesktop').animate({
-                'left': -500,
+                'left': -550,
             });
             $('.hidden-button span').css( { transition: "transform 0.5s",
                   transform:  "rotate(0deg)" } );

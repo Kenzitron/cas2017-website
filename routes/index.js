@@ -22,6 +22,9 @@ router.get('/api/votes', auth.ensureIsAuthenticated, function(req, res, next){
 });
 
 router.post('/api/paper/:paperId/vote', auth.ensureIsAuthenticated, function(req, res, next){
+
+    throw new Error();
+
     let user = req.user;
     let score = Number.parseInt(req.body.score);
     let paperId = Number.parseInt(req.params.paperId);  
